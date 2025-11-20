@@ -1,0 +1,214 @@
+// Lune Privé Database Schema
+// High-end matching platform with Airbnb-inspired design
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ========== User Management ==========
+
+model User {
+  id                String   @id @default(cuid())
+  email             String   @unique
+  passwordHash      String   @map("password_hash")
+  role              Role     @default(MEMBER)
+  nickname          String
+  createdAt         DateTime @default(now()) @map("created_at")
+  verifiedAt        DateTime? @map("verified_at")
+  verificationStatus VerificationStatus @default(PENDING) @map("verification_status")
+  locale            String   @default("en") // "en" | "zh"
+
+  // Relations
+  member            Member?
+  cast              Cast?
+  adminActions      AdminLog[] @relation("AdminActions")
+
+  @@index([email])
+  @@index([role, verificationStatus])
+  @@map("users")
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+  CAST
+}
+
+enum VerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// ========== Members (Men) ==========
+
+model Member {
+  id                String   @id @default(cuid())
+  userId            String   @unique @map("user_id")
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tier              MemberTier @default(BASIC)
+  isPaid            Boolean  @default(false) @map("is_paid") // manually updated by admin
+
+  idDocumentUrl     String?  @map("id_document_url")
+  incomeProofUrl    String?  @map("income_proof_url")
+  verificationNotes String?  @map("verification_notes")
+
+  approvedByAdminId String?  @map("approved_by_admin_id")
+  approvedAt        DateTime? @map("approved_at")
+
+  // Relations
+  bookmarks         Bookmark[]
+  meetingRequests   MeetingRequest[]
+
+  @@index([tier, isPaid])
+  @@map("members")
+}
+
+enum MemberTier {
+  BASIC
+  PREMIUM
+}
+
+// ========== Casts (Girls) ==========
+
+model Cast {
+  id                String   @id @default(cuid())
+  userId            String   @unique @map("user_id")
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Classification & Status
+  tierClassification CastTier @default(STANDARD) @map("tier_classification") // admin assigns
+  isActive          Boolean  @default(false) @map("is_active") // admin activates
+  isFeatured        Boolean  @default(false) @map("is_featured") // featured section
+  approvedByAdminId String?  @map("approved_by_admin_id")
+  approvedAt        DateTime? @map("approved_at")
+
+  // Basic Information
+  age               Int
+  birthday          DateTime? // Birthday (month/day display)
+  location          String   // district/area only
+  languages         String[] // ["en", "zh", "ja"]
+
+  // Physical Attributes
+  bustSize          String?  @map("bust_size") // "A", "B", "C", "D", etc.
+  height            Int?     // in cm
+  weight            Int?     // in kg
+  bodyMeasurements  String?  @map("body_measurements") // freeform backup
+
+  // Language Proficiency
+  englishLevel      String?  @map("english_level") // "Native", "Fluent", "Conversational", "Basic"
+
+  // Profile Content - Multilingual JSON
+  bio               Json?    @db.Json // { en: "...", zh: "...", ja: "..." }
+  personality       Json?    @db.Json // { en: "...", zh: "...", ja: "..." }
+  appearance        Json?    @db.Json // { en: "...", zh: "...", ja: "..." }
+  serviceStyle      Json?    @db.Json @map("service_style") // { en: "...", zh: "...", ja: "..." }
+
+  // Preferences - Multilingual JSON
+  preferredType     Json?    @db.Json @map("preferred_type") // { en: "...", zh: "...", ja: "..." }
+
+  // Lifestyle - Arrays for multi-select
+  hobbies           String[] @default([]) // ["gourmet", "beauty", "music", "travel", ...]
+  holidayStyle      String[] @default([]) @map("holiday_style") // ["home", "cafe", "shopping", "travel", ...]
+
+  // Legacy/Additional
+  interests         String[] @default([]) // Keep for backward compatibility
+  availabilityNotes String?  @map("availability_notes")
+
+  // Relations
+  photos            CastPhoto[]
+  bookmarks         Bookmark[]
+  meetingRequests   MeetingRequest[]
+
+  @@index([tierClassification, isActive])
+  @@index([isActive, isFeatured])
+  @@map("casts")
+}
+
+enum CastTier {
+  STANDARD     // accessible to Basic members
+  HIGH_CLASS   // accessible to Premium members only
+}
+
+// ========== Cast Photos ==========
+
+model CastPhoto {
+  id            String   @id @default(cuid())
+  castId        String   @map("cast_id")
+  cast          Cast     @relation(fields: [castId], references: [id], onDelete: Cascade)
+
+  photoUrl      String   @map("photo_url")
+  isVerified    Boolean  @default(false) @map("is_verified") // admin marks as verified
+  displayOrder  Int      @default(0) @map("display_order")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@index([castId, displayOrder])
+  @@map("cast_photos")
+}
+
+// ========== Bookmarks ==========
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  memberId  String   @map("member_id")
+  member    Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  castId    String   @map("cast_id")
+  cast      Cast     @relation(fields: [castId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([memberId, castId])
+  @@index([memberId])
+  @@map("bookmarks")
+}
+
+// ========== Meeting Requests ==========
+
+model MeetingRequest {
+  id              String   @id @default(cuid())
+  memberId        String   @map("member_id")
+  member          Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  castId          String   @map("cast_id")
+  cast            Cast     @relation(fields: [castId], references: [id], onDelete: Cascade)
+
+  requestedAt     DateTime @default(now()) @map("requested_at")
+  status          RequestStatus @default(PENDING)
+
+  adminNotes      String?  @map("admin_notes") @db.Text
+  scheduledDate   DateTime? @map("scheduled_date")
+  luneLocation    String?  @map("lune_location") // "Roppongi Main" or other venues
+
+  @@index([status, requestedAt])
+  @@index([memberId])
+  @@index([castId])
+  @@map("meeting_requests")
+}
+
+enum RequestStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+// ========== Admin Activity Log ==========
+
+model AdminLog {
+  id           String   @id @default(cuid())
+  adminId      String   @map("admin_id")
+  admin        User     @relation("AdminActions", fields: [adminId], references: [id])
+
+  actionType   String   @map("action_type") // "APPROVE_MEMBER", "CREATE_CAST", "CONFIRM_BOOKING"
+  targetUserId String?  @map("target_user_id")
+  timestamp    DateTime @default(now())
+  notes        String?  @db.Text
+
+  @@index([timestamp])
+  @@index([adminId])
+  @@map("admin_logs")
+}
