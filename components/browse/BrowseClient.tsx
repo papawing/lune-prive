@@ -179,7 +179,7 @@ export default function BrowseClient({ initialCasts, locale }: BrowseClientProps
     (filters.ageRange[0] !== 18 || filters.ageRange[1] !== 35 ? 1 : 0)
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
       {/* Active Filter Chips - Show only when filters/search active */}
       {(hasActiveFilters || searchQuery) && (
         <div className="mb-4">

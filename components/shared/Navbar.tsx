@@ -28,15 +28,15 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 left-0 right-0 w-full bg-white border-b border-gray-100 shadow-sm z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex items-center h-20 w-full">
+        <div className="flex items-center justify-between h-16 sm:h-20 w-full gap-2 sm:gap-4">
           {/* Logo */}
           <Link href="/" className="flex items-center hover:opacity-80 transition-opacity flex-shrink-0">
             <Image
               src="/images/lune-prive-logo.jpg"
               alt="LUNE PRIVÉ"
-              width={150}
-              height={50}
-              className="object-contain"
+              width={120}
+              height={40}
+              className="object-contain sm:w-[150px] sm:h-[50px]"
               priority
             />
           </Link>
@@ -75,11 +75,11 @@ export default function Navbar() {
           {session?.user && <div className="flex-1" />}
 
           {/* Right Side - Navigation & Auth */}
-          <div className="flex items-center gap-3 flex-shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0 ml-auto">
             {/* Language Switcher */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon-sm" className="rounded-full">
+                <Button variant="ghost" size="icon-sm" className="rounded-full flex-shrink-0">
                   <span className="text-lg">🌐</span>
                 </Button>
               </DropdownMenuTrigger>
@@ -99,15 +99,15 @@ export default function Navbar() {
             {/* User Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <div className="flex items-center gap-2 px-3 py-2 border-2 border-gray-200 rounded-full hover:shadow-md transition-shadow cursor-pointer">
-                  <svg className="w-4 h-4 text-deep" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 border-2 border-gray-200 rounded-full hover:shadow-md transition-shadow cursor-pointer flex-shrink-0">
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-deep flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   </svg>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white ${session?.user ? "bg-gradient-to-r from-[#4A9B8E] to-[#2D7A6E]" : "bg-gray-400"}`}>
+                  <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-white flex-shrink-0 ${session?.user ? "bg-gradient-to-r from-[#4A9B8E] to-[#2D7A6E]" : "bg-gray-400"}`}>
                     {session?.user?.nickname ? (
-                      <span className="text-sm font-semibold">{session.user.nickname[0].toUpperCase()}</span>
+                      <span className="text-xs sm:text-sm font-semibold">{session.user.nickname[0].toUpperCase()}</span>
                     ) : (
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                       </svg>
                     )}
@@ -193,28 +193,28 @@ export default function Navbar() {
       {/* Mobile Navigation (visible only on mobile, only show when not logged in) */}
       {!session?.user && (
         <nav className="lg:hidden border-t border-gray-100 px-4 py-3">
-          <div className="flex items-center justify-around gap-2 text-sm">
+          <div className="flex items-center justify-between gap-1 text-xs sm:text-sm">
             <Link
               href="/about"
-              className="text-[#222222] font-medium hover:text-teal transition-colors"
+              className="text-[#222222] font-medium hover:text-teal transition-colors text-center flex-1 px-1"
             >
               {t("nav.about") || "About"}
             </Link>
             <Link
               href="/how-it-works"
-              className="text-[#222222] font-medium hover:text-teal transition-colors"
+              className="text-[#222222] font-medium hover:text-teal transition-colors text-center flex-1 px-1"
             >
               {t("nav.howItWorks") || "How It Works"}
             </Link>
             <Link
               href="/become-cast"
-              className="text-[#222222] font-medium hover:text-teal transition-colors"
+              className="text-[#222222] font-medium hover:text-teal transition-colors text-center flex-1 px-1"
             >
               {t("nav.becomeCast") || "Cast"}
             </Link>
             <Link
               href="/register"
-              className="text-[#222222] font-medium hover:text-teal transition-colors"
+              className="text-[#222222] font-medium hover:text-teal transition-colors text-center flex-1 px-1"
             >
               {t("nav.becomeMember") || "Member"}
             </Link>

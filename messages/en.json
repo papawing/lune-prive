@@ -154,7 +154,13 @@
     "filterAge": "Age",
     "filterLanguages": "Languages",
     "filterLocation": "Location",
-    "filterInterests": "Interests"
+    "filterInterests": "Interests",
+    "search": "Search",
+    "minAge": "Min",
+    "maxAge": "Max",
+    "showResults": "Show",
+    "companion": "companion",
+    "companions": "companions"
   },
   "bookmarks": {
     "title": "Favorites",

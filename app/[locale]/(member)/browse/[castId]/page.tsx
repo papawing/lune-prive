@@ -105,12 +105,12 @@ export default async function CastDetailPage({ params }: PageProps) {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gray-50 pt-20 pb-12">
+      <div className="min-h-screen bg-gray-50 pt-4 sm:pt-6 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back Button */}
           <Link
             href={backUrl}
-            className="inline-flex items-center gap-2 text-light hover:text-deep transition-colors mb-6"
+            className="inline-flex items-center gap-2 text-light hover:text-deep transition-colors mb-4 sm:mb-6"
           >
             <ArrowLeft className="w-5 h-5" />
             {t("common.back")}
