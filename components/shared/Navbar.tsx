@@ -7,6 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { useParams } from "next/navigation"
 import { localeNames, type Locale } from "@/i18n/config"
 import { useSession, signOut } from "next-auth/react"
+import Image from "next/image"
 
 export default function Navbar() {
   const t = useTranslations()
@@ -29,11 +30,15 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex justify-between items-center h-20 w-full">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <span className="text-3xl">🌙</span>
-            <span className="font-display text-xl font-bold text-deep">
-              {t("common.appName")}
-            </span>
+          <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
+            <Image
+              src="/images/lune-prive-logo.jpg"
+              alt="LUNE PRIVÉ"
+              width={180}
+              height={60}
+              className="object-contain"
+              priority
+            />
           </Link>
 
           {/* Center - Navigation Links (hidden on mobile) */}
