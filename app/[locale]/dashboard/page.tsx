@@ -15,7 +15,7 @@ export default async function DashboardRedirectPage({ params }: PageProps) {
     return
   }
 
-  // Role-based dashboard routing
+  // Role-based dashboard routing - member route changed to use (member) group
   switch (session.user.role) {
     case "ADMIN":
       redirect(`/${locale}/admin/dashboard`)
@@ -24,7 +24,8 @@ export default async function DashboardRedirectPage({ params }: PageProps) {
       redirect(`/${locale}/cast/dashboard`)
       break
     case "MEMBER":
-      redirect(`/${locale}/browse`)
+      // Redirect to member-specific dashboard (not browse)
+      redirect(`/${locale}/member-dashboard`)
       break
     default:
       redirect(`/${locale}`)

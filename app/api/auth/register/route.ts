@@ -31,22 +31,14 @@ export async function POST(request: NextRequest) {
       // Hash password
       const passwordHash = await bcrypt.hash(password, 10)
 
-      // Upload files to Vercel Blob (if provided)
+      // Upload ID document to Vercel Blob (if provided)
       let idDocumentUrl: string | undefined
-      let incomeProofUrl: string | undefined
 
       if (idDocument && process.env.BLOB_READ_WRITE_TOKEN) {
         const blob = await put(`id-docs/${Date.now()}-${idDocument.name}`, idDocument, {
           access: "public",
         })
         idDocumentUrl = blob.url
-      }
-
-      if (incomeProof && process.env.BLOB_READ_WRITE_TOKEN) {
-        const blob = await put(`income-proofs/${Date.now()}-${incomeProof.name}`, incomeProof, {
-          access: "public",
-        })
-        incomeProofUrl = blob.url
       }
 
       // Create user and member
@@ -62,7 +54,6 @@ export async function POST(request: NextRequest) {
               tier: "BASIC",
               isPaid: false,
               idDocumentUrl,
-              incomeProofUrl,
             },
           },
         },

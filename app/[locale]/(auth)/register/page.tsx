@@ -20,7 +20,6 @@ export default function RegisterPage() {
     password: "",
     nickname: "",
     idDocument: null as File | null,
-    incomeProof: null as File | null,
   })
 
   // Cast form state
@@ -49,9 +48,6 @@ export default function RegisterPage() {
 
       if (memberData.idDocument) {
         formData.append("idDocument", memberData.idDocument)
-      }
-      if (memberData.incomeProof) {
-        formData.append("incomeProof", memberData.incomeProof)
       }
 
       const response = await fetch("/api/auth/register", {
@@ -132,7 +128,7 @@ export default function RegisterPage() {
                     value={memberData.email}
                     onChange={(e) => setMemberData({...memberData, email: e.target.value})}
                     required
-                    className="rounded-airbnb-md h-12 border-2 focus:border-rausch transition-all"
+                    className="rounded-airbnb-md h-12 border-2 focus:border-teal transition-all"
                   />
                 </div>
 
@@ -146,7 +142,7 @@ export default function RegisterPage() {
                     value={memberData.password}
                     onChange={(e) => setMemberData({...memberData, password: e.target.value})}
                     required
-                    className="rounded-airbnb-md h-12 border-2 focus:border-rausch transition-all"
+                    className="rounded-airbnb-md h-12 border-2 focus:border-teal transition-all"
                   />
                 </div>
 
@@ -160,7 +156,7 @@ export default function RegisterPage() {
                     value={memberData.nickname}
                     onChange={(e) => setMemberData({...memberData, nickname: e.target.value})}
                     required
-                    className="rounded-airbnb-md h-12 border-2 focus:border-rausch transition-all"
+                    className="rounded-airbnb-md h-12 border-2 focus:border-teal transition-all"
                   />
                 </div>
 
@@ -172,18 +168,6 @@ export default function RegisterPage() {
                     type="file"
                     accept="image/*,.pdf"
                     onChange={(e) => setMemberData({...memberData, idDocument: e.target.files?.[0] || null})}
-                    className="rounded-airbnb-md h-12 border-2 transition-all"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-deep">
-                    {t("member.uploadIncome")}
-                  </label>
-                  <Input
-                    type="file"
-                    accept="image/*,.pdf"
-                    onChange={(e) => setMemberData({...memberData, incomeProof: e.target.files?.[0] || null})}
                     className="rounded-airbnb-md h-12 border-2 transition-all"
                   />
                 </div>
@@ -217,7 +201,7 @@ export default function RegisterPage() {
                     value={castData.email}
                     onChange={(e) => setCastData({...castData, email: e.target.value})}
                     required
-                    className="rounded-airbnb-md h-12 border-2 focus:border-rausch transition-all"
+                    className="rounded-airbnb-md h-12 border-2 focus:border-teal transition-all"
                   />
                 </div>
 
@@ -231,7 +215,7 @@ export default function RegisterPage() {
                     value={castData.password}
                     onChange={(e) => setCastData({...castData, password: e.target.value})}
                     required
-                    className="rounded-airbnb-md h-12 border-2 focus:border-rausch transition-all"
+                    className="rounded-airbnb-md h-12 border-2 focus:border-teal transition-all"
                   />
                 </div>
 
@@ -245,7 +229,7 @@ export default function RegisterPage() {
                     value={castData.nickname}
                     onChange={(e) => setCastData({...castData, nickname: e.target.value})}
                     required
-                    className="rounded-airbnb-md h-12 border-2 focus:border-rausch transition-all"
+                    className="rounded-airbnb-md h-12 border-2 focus:border-teal transition-all"
                   />
                 </div>
 
@@ -260,7 +244,7 @@ export default function RegisterPage() {
                       value={castData.age}
                       onChange={(e) => setCastData({...castData, age: e.target.value})}
                       required
-                      className="rounded-airbnb-md h-12 border-2 focus:border-rausch transition-all"
+                      className="rounded-airbnb-md h-12 border-2 focus:border-teal transition-all"
                     />
                   </div>
 
@@ -274,7 +258,7 @@ export default function RegisterPage() {
                       value={castData.location}
                       onChange={(e) => setCastData({...castData, location: e.target.value})}
                       required
-                      className="rounded-airbnb-md h-12 border-2 focus:border-rausch transition-all"
+                      className="rounded-airbnb-md h-12 border-2 focus:border-teal transition-all"
                     />
                   </div>
                 </div>
@@ -299,7 +283,7 @@ export default function RegisterPage() {
           <div className="mt-8 text-center border-t pt-6">
             <p className="text-sm text-light">
               {t("auth.hasAccount")}{" "}
-              <Link href="/login" className="text-rausch hover:underline font-semibold">
+              <Link href="/login" className="text-teal hover:underline font-semibold">
                 {t("auth.login")}
               </Link>
             </p>

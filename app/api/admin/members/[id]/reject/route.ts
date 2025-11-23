@@ -19,11 +19,34 @@ export async function POST(
 
     const { id } = await params
 
+    // Find member with user
+    const member = await prisma.member.findUnique({
+      where: { id },
+      include: { user: true },
+    })
+
+    if (!member) {
+      return NextResponse.json(
+        { error: "Member not found" },
+        { status: 404 }
+      )
+    }
+
     // Update member verification status
     await prisma.user.update({
-      where: { id },
+      where: { id: member.userId },
       data: {
         verificationStatus: "REJECTED",
+      },
+    })
+
+    // Log admin action
+    await prisma.adminLog.create({
+      data: {
+        adminId: session.user.id,
+        actionType: "REJECT_MEMBER",
+        targetId: member.userId,
+        notes: `Rejected member ${member.user.nickname}`,
       },
     })
 

@@ -24,7 +24,8 @@
     "messages": "消息",
     "profile": "个人资料",
     "admin": "管理",
-    "logout": "登出"
+    "logout": "登出",
+    "becomeCast": "成为演员"
   },
   "auth": {
     "login": "登录",
@@ -35,6 +36,9 @@
     "forgotPassword": "忘记密码？",
     "noAccount": "没有账号？",
     "hasAccount": "已有账号？",
+    "welcomeBack": "欢迎回来",
+    "loginPrompt": "输入您的凭据以继续",
+    "secureLogin": "您的信息安全加密",
     "loginSuccess": "登录成功",
     "loginError": "电子邮件或密码无效",
     "registerSuccess": "注册成功。请等待验证。",
@@ -84,6 +88,30 @@
     "hobbies": "爱好",
     "holidayStyle": "假期风格"
   },
+  "dashboard": {
+    "welcome": "欢迎来到 LUNE PRIVÉ",
+    "welcomeName": "欢迎来到 LUNE PRIVÉ，{name}",
+    "tagline": "今晚找到您完美的饮酒伴侣",
+    "discoverCasts": "发现演员",
+    "yourBookmarks": "您的收藏",
+    "stats": {
+      "castsAvailable": "可用演员",
+      "savedFavorites": "已保存收藏",
+      "pendingRequests": "待处理请求"
+    },
+    "featuredTonight": "今晚精选",
+    "yourFavorites": "您的收藏",
+    "yourRequests": "您的请求",
+    "viewAll": "查看全部",
+    "discoverMore": "发现更多",
+    "readyToMeet": "准备好见面了吗？",
+    "browseCollection": "浏览我们的完整演员系列",
+    "exploreAll": "探索所有演员",
+    "upgradeAccess": "高级访问权限：尊贵女士",
+    "upgradeNow": "立即升级到高级会员",
+    "noCastsYet": "开始探索我们的会员",
+    "requestedOn": "请求于"
+  },
   "browse": {
     "title": "发现",
     "featuredTitle": "精选",
@@ -91,19 +119,61 @@
     "premiumAccess": "您可以访问所有高级会员",
     "basicAccess": "升级至高级会员以访问尊贵女士",
     "noCasts": "目前暂无会员",
+    "tryDifferentFilters": "尝试调整您的筛选器",
     "featured": "精选会员",
     "filters": "筛选器",
     "ageRange": "年龄范围",
+    "languages": "语言",
+    "location": "位置",
+    "allLocations": "所有位置",
+    "interests": "兴趣",
+    "applyFilters": "应用筛选器",
+    "clear": "清除",
     "noResults": "未找到",
     "loadMore": "加载更多",
     "bookmark": "保存",
     "bookmarked": "已保存",
     "viewProfile": "查看资料",
+    "searchPlaceholder": "按名称搜索...",
+    "sortBy": "排序方式",
+    "sortFeatured": "精选优先",
+    "sortNewest": "最新优先",
+    "sortYoungest": "年龄：最小",
+    "sortOldest": "年龄：最大",
+    "activeFilters": "活跃筛选器",
+    "clearAllFilters": "清除所有筛选器",
+    "castsFound": "{count} 位演员",
+    "filterAge": "年龄",
+    "filterLanguages": "语言",
+    "filterLocation": "位置",
+    "filterInterests": "兴趣",
     "upgradeCTA": {
       "title": "解锁高级访问权限",
       "description": "访问我们的尊贵女士并享受高级功能",
       "button": "升级至高级会员"
     }
+  },
+  "bookmarks": {
+    "title": "已收藏",
+    "description": "您收藏的会员",
+    "emptyDescription": "开始收藏您喜爱的会员",
+    "empty": "还没有收藏的会员",
+    "emptyHint": "浏览会员并收藏您的最爱",
+    "browseCasts": "浏览会员",
+    "totalSaved": "已收藏会员"
+  },
+  "requests": {
+    "title": "会面请求",
+    "description": "您的会面请求",
+    "emptyDescription": "还没有会面请求",
+    "empty": "没有会面请求",
+    "emptyHint": "浏览会员并请求会面",
+    "browseCasts": "浏览会员",
+    "pending": "待处理",
+    "confirmed": "已确认",
+    "history": "历史记录",
+    "requestedOn": "请求于",
+    "awaitingAdmin": "等待管理员协调"
   },
   "meeting": {
     "request": "请求会面",
@@ -138,5 +208,138 @@
     "markPaid": "标记为已付款",
     "coordinateMeeting": "协调会面",
     "confirmBooking": "确认预订"
+  },
+  "landing": {
+    "hero": {
+      "title": "寻找您的完美日本陪伴",
+      "subtitle": "奢华饮酒体验。精选陪伴。享受东京之夜。",
+      "ctaPrimary": "探索陪伴",
+      "ctaSecondary": "了解更多",
+      "trustBadge1": "已验证资料",
+      "trustBadge2": "安全平台",
+      "trustBadge3": "多语言"
+    },
+    "features": {
+      "title": "为什么选择LUNE PRIVÉ",
+      "curated": "精选",
+      "curatedDesc": "与通晓英语、中文和日语的认证陪伴者见面",
+      "secure": "谨慎且安全",
+      "secureDesc": "您的隐私是我们的首要任务。已验证的个人资料，加密通信",
+      "experience": "六本木体验",
+      "experienceDesc": "在当地专家的陪伴下体验东京最具活力的夜生活区"
+    },
+    "howItWorks": {
+      "title": "如何使用",
+      "subtitle": "简单步骤提升您的夜晚",
+      "step1Title": "浏览",
+      "step1Desc": "查看带有详细信息和照片的已验证陪伴者资料",
+      "step2Title": "预约",
+      "step2Desc": "发送您的偏好和期望的会面时间",
+      "step3Title": "会面",
+      "step3Desc": "在六本木的高级场所享受您精选的夜晚",
+      "step4Title": "评价",
+      "step4Desc": "分享您的体验以帮助我们的社区成长"
+    },
+    "featuredCasts": {
+      "title": "精选陪伴者",
+      "subtitle": "认识我们最受欢迎的陪伴者",
+      "viewAll": "查看所有陪伴者"
+    },
+    "membership": {
+      "title": "选择您的会员等级",
+      "subtitle": "选择适合您生活方式的等级",
+      "standard": {
+        "name": "标准",
+        "price": "月费¥10,000起",
+        "feature1": "访问标准陪伴者",
+        "feature2": "基本资料浏览",
+        "feature3": "安全消息",
+        "feature4": "标准支持",
+        "cta": "开始使用"
+      },
+      "gold": {
+        "name": "黄金",
+        "price": "月费¥25,000起",
+        "feature1": "所有标准功能",
+        "feature2": "优先预订",
+        "feature3": "扩展陪伴者资料",
+        "feature4": "优先支持",
+        "cta": "选择黄金",
+        "popular": "最受欢迎"
+      },
+      "vip": {
+        "name": "VIP",
+        "price": "月费¥50,000起",
+        "feature1": "所有黄金功能",
+        "feature2": "访问高级陪伴者",
+        "feature3": "个人礼宾服务",
+        "feature4": "24/7 VIP支持",
+        "cta": "成为VIP"
+      }
+    },
+    "testimonials": {
+      "title": "会员评价",
+      "subtitle": "来自已验证会员的真实体验",
+      "testimonial1": {
+        "text": "谨慎和专业程度超出了我的期望。每个细节都得到了精心处理。",
+        "author": "M.T.",
+        "location": "东京"
+      },
+      "testimonial2": {
+        "text": "我找到了完美的商务晚餐陪伴。英语流利且非常优雅。",
+        "author": "J.K.",
+        "location": "新加坡"
+      },
+      "testimonial3": {
+        "text": "验证过程让我感到安全。质量胜过数量 - 正是我所需要的。",
+        "author": "R.L.",
+        "location": "纽约"
+      }
+    },
+    "location": {
+      "title": "为什么选择六本木？",
+      "subtitle": "东京首屈一指的夜生活目的地",
+      "feature1": "多语言场所的国际氛围",
+      "feature2": "高级酒吧、餐厅和专属会所",
+      "feature3": "安全、便利且交通便利的位置",
+      "feature4": "东京精致娱乐场景的中心"
+    },
+    "trust": {
+      "title": "信任与安全",
+      "subtitle": "您的安全是我们的首要任务",
+      "verification": {
+        "title": "需要身份验证",
+        "desc": "所有会员都经过彻底验证"
+      },
+      "payment": {
+        "title": "安全支付处理",
+        "desc": "所有交易均采用银行级加密"
+      },
+      "support": {
+        "title": "24/7支持团队",
+        "desc": "随时为您提供帮助"
+      },
+      "privacy": {
+        "title": "隐私保证",
+        "desc": "您的信息绝不会被分享"
+      }
+    },
+    "finalCTA": {
+      "title": "准备好提升您的夜晚了吗？",
+      "subtitle": "加入东京最专属的陪伴平台",
+      "ctaPrimary": "立即加入",
+      "ctaSecondary": "浏览陪伴者",
+      "note": "需要验证 • 谨慎且专业"
+    },
+    "footer": {
+      "about": "关于我们",
+      "howItWorks": "如何使用",
+      "safety": "安全与隐私",
+      "terms": "服务条款",
+      "privacy": "隐私政策",
+      "contact": "联系我们",
+      "copyright": "© 2025 LUNE PRIVÉ. 保留所有权利。",
+      "location": "东京 六本木"
+    }
   }
 }

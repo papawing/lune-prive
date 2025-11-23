@@ -20,6 +20,7 @@ export default async function AdminDashboardPage({ params }: PageProps) {
 
   // Fetch real dashboard stats
   const [
+    activeMembersCount,
     pendingMembersCount,
     activeCastsCount,
     pendingRequestsCount,
@@ -28,6 +29,10 @@ export default async function AdminDashboardPage({ params }: PageProps) {
     recentMembers,
     recentRequests,
   ] = await Promise.all([
+    // Active members
+    prisma.member.count({
+      where: { isActive: true },
+    }),
     // Pending members awaiting verification
     prisma.user.count({
       where: {
@@ -122,22 +127,23 @@ export default async function AdminDashboardPage({ params }: PageProps) {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {/* Pending Members */}
-          <div className={`bg-white rounded-xl p-6 shadow-sm border ${
-            pendingMembersCount > 0 ? 'border-yellow-200 bg-yellow-50' : 'border-gray-100'
-          }`}>
+          {/* Active Members */}
+          <div className="bg-white rounded-airbnb-md p-6 shadow-airbnb-md border border-gray-100">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-semibold text-gray-600">Pending Members</h3>
+              <h3 className="text-sm font-semibold text-gray-600">Active Members</h3>
               <span className="text-2xl">👥</span>
             </div>
-            <p className="text-3xl font-bold text-deep">{pendingMembersCount}</p>
+            <p className="text-3xl font-bold text-deep">{activeMembersCount}</p>
             <p className="text-xs text-gray-500 mt-2">
               {totalMembersCount} total members
+              {pendingMembersCount > 0 && (
+                <span className="ml-1 text-yellow-600">• {pendingMembersCount} pending</span>
+              )}
             </p>
           </div>
 
           {/* Active Casts */}
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-airbnb-md p-6 shadow-airbnb-md border border-gray-100">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold text-gray-600">Active Casts</h3>
               <span className="text-2xl">💃</span>
@@ -149,7 +155,7 @@ export default async function AdminDashboardPage({ params }: PageProps) {
           </div>
 
           {/* Pending Requests */}
-          <div className={`bg-white rounded-xl p-6 shadow-sm border ${
+          <div className={`bg-white rounded-airbnb-md p-6 shadow-airbnb-md border ${
             pendingRequestsCount > 0 ? 'border-green-200 bg-green-50' : 'border-gray-100'
           }`}>
             <div className="flex items-center justify-between mb-4">
@@ -162,13 +168,13 @@ export default async function AdminDashboardPage({ params }: PageProps) {
         </div>
 
         {/* Quick Actions */}
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div className="bg-white rounded-airbnb-md p-6 shadow-airbnb-md border border-gray-100">
           <h2 className="text-lg font-semibold text-deep mb-4">Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <Link
               href="/admin/members"
               locale={locale}
-              className="p-4 border-2 border-gray-200 rounded-lg hover:border-[#FF385C] hover:bg-gray-50 transition-all text-center"
+              className="p-4 border-2 border-gray-200 rounded-lg hover:border-[#4A9B8E] hover:bg-gray-50 transition-all text-center"
             >
               <div className="text-2xl mb-2">👥</div>
               <div className="text-sm font-semibold text-deep">Manage Members</div>
@@ -176,7 +182,7 @@ export default async function AdminDashboardPage({ params }: PageProps) {
             <Link
               href="/admin/casts"
               locale={locale}
-              className="p-4 border-2 border-gray-200 rounded-lg hover:border-[#FF385C] hover:bg-gray-50 transition-all text-center"
+              className="p-4 border-2 border-gray-200 rounded-lg hover:border-[#4A9B8E] hover:bg-gray-50 transition-all text-center"
             >
               <div className="text-2xl mb-2">💃</div>
               <div className="text-sm font-semibold text-deep">Manage Casts</div>
@@ -184,7 +190,7 @@ export default async function AdminDashboardPage({ params }: PageProps) {
             <Link
               href="/admin/meeting-requests"
               locale={locale}
-              className="p-4 border-2 border-gray-200 rounded-lg hover:border-[#FF385C] hover:bg-gray-50 transition-all text-center"
+              className="p-4 border-2 border-gray-200 rounded-lg hover:border-[#4A9B8E] hover:bg-gray-50 transition-all text-center"
             >
               <div className="text-2xl mb-2">📅</div>
               <div className="text-sm font-semibold text-deep">Meeting Requests</div>
@@ -200,7 +206,7 @@ export default async function AdminDashboardPage({ params }: PageProps) {
         {/* Recent Activity */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
           {/* Pending Member Verifications */}
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-airbnb-md p-6 shadow-airbnb-md border border-gray-100">
             <h2 className="text-lg font-semibold text-deep mb-4 flex items-center justify-between">
               <span>Pending Verifications</span>
               {recentMembers.length > 0 && (
@@ -236,7 +242,7 @@ export default async function AdminDashboardPage({ params }: PageProps) {
                       <Link
                         href="/admin/members"
                         locale={locale}
-                        className="text-xs text-rausch hover:underline font-semibold"
+                        className="text-xs text-teal hover:underline font-semibold"
                       >
                         Review →
                       </Link>
@@ -248,7 +254,7 @@ export default async function AdminDashboardPage({ params }: PageProps) {
           </div>
 
           {/* Pending Meeting Requests */}
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-airbnb-md p-6 shadow-airbnb-md border border-gray-100">
             <h2 className="text-lg font-semibold text-deep mb-4 flex items-center justify-between">
               <span>Pending Meetings</span>
               {recentRequests.length > 0 && (
@@ -283,7 +289,7 @@ export default async function AdminDashboardPage({ params }: PageProps) {
                       <Link
                         href="/admin/meeting-requests"
                         locale={locale}
-                        className="text-xs text-rausch hover:underline font-semibold"
+                        className="text-xs text-teal hover:underline font-semibold"
                       >
                         Coordinate →
                       </Link>

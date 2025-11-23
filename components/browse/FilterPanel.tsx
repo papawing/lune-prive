@@ -1,9 +1,13 @@
 "use client"
 
-import { useState } from "react"
 import { useTranslations } from "next-intl"
+import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 export interface FilterState {
   ageRange: [number, number]
@@ -13,32 +17,25 @@ export interface FilterState {
 }
 
 interface FilterPanelProps {
+  filters: FilterState
   onFilterChange: (filters: FilterState) => void
   availableLocations: string[]
   availableInterests: string[]
 }
 
 export default function FilterPanel({
+  filters,
   onFilterChange,
   availableLocations,
   availableInterests,
 }: FilterPanelProps) {
   const t = useTranslations()
 
-  const [filters, setFilters] = useState<FilterState>({
-    ageRange: [18, 35],
-    languages: [],
-    location: "",
-    interests: [],
-  })
-
-  const [isExpanded, setIsExpanded] = useState(false)
-
   const handleAgeChange = (type: "min" | "max", value: number) => {
     const newRange: [number, number] =
       type === "min" ? [value, filters.ageRange[1]] : [filters.ageRange[0], value]
 
-    setFilters({ ...filters, ageRange: newRange })
+    onFilterChange({ ...filters, ageRange: newRange })
   }
 
   const toggleLanguage = (lang: string) => {
@@ -46,7 +43,7 @@ export default function FilterPanel({
       ? filters.languages.filter((l) => l !== lang)
       : [...filters.languages, lang]
 
-    setFilters({ ...filters, languages: newLanguages })
+    onFilterChange({ ...filters, languages: newLanguages })
   }
 
   const toggleInterest = (interest: string) => {
@@ -54,181 +51,227 @@ export default function FilterPanel({
       ? filters.interests.filter((i) => i !== interest)
       : [...filters.interests, interest]
 
-    setFilters({ ...filters, interests: newInterests })
-  }
-
-  const handleApplyFilters = () => {
-    onFilterChange(filters)
-  }
-
-  const handleClearFilters = () => {
-    const defaultFilters: FilterState = {
-      ageRange: [18, 35],
-      languages: [],
-      location: "",
-      interests: [],
-    }
-    setFilters(defaultFilters)
-    onFilterChange(defaultFilters)
+    onFilterChange({ ...filters, interests: newInterests })
   }
 
   const languageOptions = [
-    { code: "en", label: "English" },
-    { code: "zh", label: "中文" },
-    { code: "ja", label: "日本語" },
+    { code: "en", label: "English", emoji: "🇺🇸" },
+    { code: "zh", label: "中文", emoji: "🇨🇳" },
+    { code: "ja", label: "日本語", emoji: "🇯🇵" },
   ]
 
-  return (
-    <Card className="mb-8 overflow-hidden shadow-airbnb border-0">
-      {/* Mobile Toggle Button */}
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full px-6 py-4 flex items-center justify-between md:hidden border-b border-gray-100"
-      >
-        <div className="flex items-center gap-2">
-          <span className="text-xl">🔍</span>
-          <span className="font-semibold text-deep">
-            {t("browse.filters") || "Filters"}
-          </span>
-        </div>
-        <svg
-          className={`w-5 h-5 text-gray-600 transition-transform ${
-            isExpanded ? "rotate-180" : ""
-          }`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
-      </button>
+  // Check if filter is active
+  const hasAgeFilter = filters.ageRange[0] !== 18 || filters.ageRange[1] !== 35
+  const hasLanguageFilter = filters.languages.length > 0
+  const hasLocationFilter = filters.location !== ""
+  const hasInterestFilter = filters.interests.length > 0
 
-      {/* Filter Content */}
-      <div
-        className={`${
-          isExpanded ? "block" : "hidden"
-        } md:block px-6 py-6 space-y-6`}
-      >
+  return (
+    <div className="mb-8">
+      {/* Horizontal Filter Pills */}
+      <div className="flex flex-wrap items-center gap-3">
         {/* Age Range Filter */}
-        <div>
-          <label className="block text-sm font-semibold text-deep mb-3">
-            {t("browse.ageRange") || "Age Range"}
-          </label>
-          <div className="flex items-center gap-4">
-            <div className="flex-1">
-              <label className="text-xs text-light mb-1 block">Min</label>
-              <input
-                type="number"
-                min="18"
-                max="35"
-                value={filters.ageRange[0]}
-                onChange={(e) => handleAgeChange("min", parseInt(e.target.value))}
-                className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-rausch focus:ring-0 transition-colors text-sm"
-              />
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={`rounded-full px-4 py-2 text-sm font-medium border-2 transition-all ${
+                hasAgeFilter
+                  ? "border-teal bg-teal/5 text-teal hover:bg-teal/10"
+                  : "border-gray-200 hover:border-gray-300"
+              }`}
+            >
+              🎂 {t("browse.filterAge")}
+              {hasAgeFilter && `: ${filters.ageRange[0]}-${filters.ageRange[1]}`}
+              <ChevronDown className="ml-2 w-4 h-4" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-80 p-4" align="start">
+            <div className="space-y-4">
+              <h4 className="font-semibold text-sm text-deep">
+                {t("browse.ageRange")}
+              </h4>
+              <div className="flex items-center gap-4">
+                <div className="flex-1">
+                  <label className="text-xs text-light mb-1 block">Min</label>
+                  <input
+                    type="number"
+                    min="18"
+                    max="35"
+                    value={filters.ageRange[0]}
+                    onChange={(e) =>
+                      handleAgeChange("min", parseInt(e.target.value) || 18)
+                    }
+                    className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-teal focus:ring-0 transition-colors text-sm"
+                  />
+                </div>
+                <span className="text-gray-400 mt-6">–</span>
+                <div className="flex-1">
+                  <label className="text-xs text-light mb-1 block">Max</label>
+                  <input
+                    type="number"
+                    min="18"
+                    max="35"
+                    value={filters.ageRange[1]}
+                    onChange={(e) =>
+                      handleAgeChange("max", parseInt(e.target.value) || 35)
+                    }
+                    className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-teal focus:ring-0 transition-colors text-sm"
+                  />
+                </div>
+              </div>
             </div>
-            <span className="text-gray-400 mt-6">–</span>
-            <div className="flex-1">
-              <label className="text-xs text-light mb-1 block">Max</label>
-              <input
-                type="number"
-                min="18"
-                max="35"
-                value={filters.ageRange[1]}
-                onChange={(e) => handleAgeChange("max", parseInt(e.target.value))}
-                className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-rausch focus:ring-0 transition-colors text-sm"
-              />
-            </div>
-          </div>
-        </div>
+          </PopoverContent>
+        </Popover>
 
         {/* Languages Filter */}
-        <div>
-          <label className="block text-sm font-semibold text-deep mb-3">
-            {t("browse.languages") || "Languages"}
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {languageOptions.map((lang) => (
-              <button
-                key={lang.code}
-                onClick={() => toggleLanguage(lang.code)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  filters.languages.includes(lang.code)
-                    ? "bg-gradient-rausch text-white shadow-md"
-                    : "bg-gray-100 text-deep hover:bg-gray-200"
-                }`}
-              >
-                {lang.label}
-              </button>
-            ))}
-          </div>
-        </div>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={`rounded-full px-4 py-2 text-sm font-medium border-2 transition-all ${
+                hasLanguageFilter
+                  ? "border-teal bg-teal/5 text-teal hover:bg-teal/10"
+                  : "border-gray-200 hover:border-gray-300"
+              }`}
+            >
+              🗣️ {t("browse.filterLanguages")}
+              {hasLanguageFilter && ` (${filters.languages.length})`}
+              <ChevronDown className="ml-2 w-4 h-4" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-64 p-4" align="start">
+            <div className="space-y-3">
+              <h4 className="font-semibold text-sm text-deep">
+                {t("browse.languages")}
+              </h4>
+              <div className="space-y-2">
+                {languageOptions.map((lang) => (
+                  <label
+                    key={lang.code}
+                    className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={filters.languages.includes(lang.code)}
+                      onChange={() => toggleLanguage(lang.code)}
+                      className="w-4 h-4 text-teal border-gray-300 rounded focus:ring-teal"
+                    />
+                    <span className="text-xl">{lang.emoji}</span>
+                    <span className="text-sm font-medium text-deep">
+                      {lang.label}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
 
         {/* Location Filter */}
-        <div>
-          <label className="block text-sm font-semibold text-deep mb-3">
-            {t("browse.location") || "Location"}
-          </label>
-          <select
-            value={filters.location}
-            onChange={(e) => setFilters({ ...filters, location: e.target.value })}
-            className="w-full px-4 py-2.5 rounded-lg border-2 border-gray-200 focus:border-rausch focus:ring-0 transition-colors text-sm"
-          >
-            <option value="">{t("browse.allLocations") || "All Locations"}</option>
-            {availableLocations.map((location) => (
-              <option key={location} value={location}>
-                {location}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={`rounded-full px-4 py-2 text-sm font-medium border-2 transition-all ${
+                hasLocationFilter
+                  ? "border-teal bg-teal/5 text-teal hover:bg-teal/10"
+                  : "border-gray-200 hover:border-gray-300"
+              }`}
+            >
+              📍 {t("browse.filterLocation")}
+              {hasLocationFilter && `: ${filters.location}`}
+              <ChevronDown className="ml-2 w-4 h-4" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-64 p-4" align="start">
+            <div className="space-y-3">
+              <h4 className="font-semibold text-sm text-deep">
+                {t("browse.location")}
+              </h4>
+              <div className="space-y-2 max-h-64 overflow-y-auto">
+                <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                  <input
+                    type="radio"
+                    name="location"
+                    checked={filters.location === ""}
+                    onChange={() =>
+                      onFilterChange({ ...filters, location: "" })
+                    }
+                    className="w-4 h-4 text-teal border-gray-300 focus:ring-teal"
+                  />
+                  <span className="text-sm font-medium text-deep">
+                    {t("browse.allLocations")}
+                  </span>
+                </label>
+                {availableLocations.map((location) => (
+                  <label
+                    key={location}
+                    className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors"
+                  >
+                    <input
+                      type="radio"
+                      name="location"
+                      checked={filters.location === location}
+                      onChange={() =>
+                        onFilterChange({ ...filters, location })
+                      }
+                      className="w-4 h-4 text-teal border-gray-300 focus:ring-teal"
+                    />
+                    <span className="text-sm font-medium text-deep">
+                      {location}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
 
         {/* Interests Filter */}
         {availableInterests.length > 0 && (
-          <div>
-            <label className="block text-sm font-semibold text-deep mb-3">
-              {t("browse.interests") || "Interests"}
-            </label>
-            <div className="flex flex-wrap gap-2">
-              {availableInterests.map((interest) => (
-                <button
-                  key={interest}
-                  onClick={() => toggleInterest(interest)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                    filters.interests.includes(interest)
-                      ? "bg-gradient-rausch text-white shadow-sm"
-                      : "bg-gray-100 text-deep hover:bg-gray-200"
-                  }`}
-                >
-                  {interest}
-                </button>
-              ))}
-            </div>
-          </div>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={`rounded-full px-4 py-2 text-sm font-medium border-2 transition-all ${
+                  hasInterestFilter
+                    ? "border-teal bg-teal/5 text-teal hover:bg-teal/10"
+                    : "border-gray-200 hover:border-gray-300"
+                }`}
+              >
+                ✨ {t("browse.filterInterests")}
+                {hasInterestFilter && ` (${filters.interests.length})`}
+                <ChevronDown className="ml-2 w-4 h-4" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-72 p-4" align="start">
+              <div className="space-y-3">
+                <h4 className="font-semibold text-sm text-deep">
+                  {t("browse.interests")}
+                </h4>
+                <div className="flex flex-wrap gap-2 max-h-64 overflow-y-auto">
+                  {availableInterests.map((interest) => (
+                    <button
+                      key={interest}
+                      onClick={() => toggleInterest(interest)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                        filters.interests.includes(interest)
+                          ? "bg-gradient-rausch text-white shadow-sm"
+                          : "bg-gray-100 text-deep hover:bg-gray-200"
+                      }`}
+                    >
+                      {interest}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
         )}
-
-        {/* Action Buttons */}
-        <div className="flex gap-3 pt-4 border-t border-gray-100">
-          <Button
-            onClick={handleApplyFilters}
-            variant="airbnb"
-            className="flex-1"
-          >
-            {t("browse.applyFilters") || "Apply Filters"}
-          </Button>
-          <Button
-            onClick={handleClearFilters}
-            variant="outline"
-            className="px-6"
-          >
-            {t("browse.clear") || "Clear"}
-          </Button>
-        </div>
       </div>
-    </Card>
+
+      {/* Note: Apply/Clear buttons removed - filters apply instantly! */}
+    </div>
   )
 }

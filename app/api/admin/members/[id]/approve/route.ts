@@ -19,11 +19,44 @@ export async function POST(
 
     const { id } = await params
 
-    // Update member verification status
-    await prisma.user.update({
+    // Find member with user
+    const member = await prisma.member.findUnique({
       where: { id },
+      include: { user: true },
+    })
+
+    if (!member) {
+      return NextResponse.json(
+        { error: "Member not found" },
+        { status: 404 }
+      )
+    }
+
+    // Update User verification status
+    await prisma.user.update({
+      where: { id: member.userId },
       data: {
         verificationStatus: "APPROVED",
+        verifiedAt: new Date(),
+      },
+    })
+
+    // Update Member approval tracking
+    await prisma.member.update({
+      where: { id },
+      data: {
+        approvedByAdminId: session.user.id,
+        approvedAt: new Date(),
+      },
+    })
+
+    // Log admin action
+    await prisma.adminLog.create({
+      data: {
+        adminId: session.user.id,
+        actionType: "APPROVE_MEMBER",
+        targetId: member.userId,
+        notes: `Approved member ${member.user.nickname}`,
       },
     })
 

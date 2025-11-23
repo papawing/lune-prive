@@ -121,40 +121,34 @@ export default function CastCard({
             </div>
           )}
 
-          {/* Verification Badge */}
-          {verificationStatus === "APPROVED" && (
-            <div className="absolute top-3 right-14">
-              <div className="bg-success text-white rounded-full w-8 h-8 flex items-center justify-center shadow-md">
-                ✓
+          {/* Top Right Icons Container - Better spacing */}
+          <div className="absolute top-3 right-3 flex items-start gap-2">
+            {/* Verification Badge - Only show if verified */}
+            {verificationStatus === "APPROVED" && (
+              <div className="bg-success text-white rounded-full w-8 h-8 flex items-center justify-center shadow-md flex-shrink-0">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Bookmark Button */}
-          <Button
-            size="icon"
-            variant="ghost"
-            className={`absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full shadow-md ${
-              isAnimating ? "animate-bounce-heart" : ""
-            }`}
-            onClick={handleBookmark}
-          >
-            <Heart
-              className={`h-5 w-5 transition-colors ${
-                bookmarked ? "fill-coral text-coral" : "text-gray-600"
+            {/* Bookmark Button */}
+            <Button
+              size="icon"
+              variant="ghost"
+              className={`bg-white/95 hover:bg-white rounded-full shadow-md flex-shrink-0 w-8 h-8 ${
+                isAnimating ? "animate-bounce-heart" : ""
               }`}
-              style={bookmarked ? { fill: "var(--color-primary-coral)", color: "var(--color-primary-coral)" } : {}}
-            />
-          </Button>
-
-          {/* Featured Ribbon */}
-          {isFeatured && (
-            <div className="absolute top-0 right-0 w-0 h-0 border-t-[60px] border-r-[60px] border-t-rose-gold border-r-transparent">
-              <span className="absolute -top-14 right-1 text-white text-xs rotate-45 transform">
-                ⭐
-              </span>
-            </div>
-          )}
+              onClick={handleBookmark}
+            >
+              <Heart
+                className={`h-4 w-4 transition-all duration-200 ${
+                  bookmarked ? "fill-coral text-coral scale-110" : "text-gray-700"
+                }`}
+                style={bookmarked ? { fill: "var(--color-primary-coral)", color: "var(--color-primary-coral)" } : {}}
+              />
+            </Button>
+          </div>
         </div>
 
         {/* Card Content */}

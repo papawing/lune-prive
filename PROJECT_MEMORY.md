@@ -111,21 +111,31 @@
 - [Airbnb 2025 Summer Release](https://news.airbnb.com/airbnb-2025-summer-release/)
 - Airbnb Design Language System (DLS)
 
-### Color Palette
+### Color Palette (LUNE PRIVÉ Teal Theme - Nov 2025 Update)
 ```css
-Primary Coral: #FF5A5F    /* Airbnb signature - CTAs, buttons */
+/* Primary Colors - From Favicon Crescent Moon */
+Primary Teal: #4A9B8E     /* LUNE PRIVÉ signature - CTAs, buttons */
+Mint Green: #A8D5C5       /* Light teal accent */
+Deep Teal: #2D7A6E        /* Dark teal for depth */
+
+/* Luxury Accents */
 Gold Vibrant: #FFD700     /* Premium tier badges */
 Champagne: #F7E7CE        /* Premium backgrounds */
-Rose Gold: #B76E79        /* Elegant accents */
+Moonlight Green: #68BDA8  /* Moonlit elegance */
 
-Teal: #00A699            /* Success, verified badges */
-Orange: #FC642D          /* Warnings */
-Red: #C13515            /* Errors */
+/* Semantic Colors */
+Success Teal: #00A699     /* Success, verified badges */
+Warning Orange: #FC642D   /* Warnings */
+Error Red: #C13515        /* Errors */
 
-Deep Gray: #484848       /* Primary text */
-Light Gray: #767676      /* Secondary text */
-Gray-50: #F7F7F7        /* Backgrounds */
+/* Neutrals */
+Deep Gray: #484848        /* Primary text */
+Light Gray: #767676       /* Secondary text */
+Gray-50: #F7F7F7         /* Backgrounds */
 ```
+
+**Color Update History**:
+- **Nov 2025**: Transitioned from Airbnb pink (#FF385C) to LUNE PRIVÉ teal theme (#4A9B8E) based on favicon crescent moon design
 
 ### Key Design Principles
 - **Dimensional over flat**: Use shadows, depth, 3D effects

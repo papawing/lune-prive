@@ -108,7 +108,7 @@ export default async function AdminRequestsPage({ params }: PageProps) {
 
         {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-lg p-4 border border-gray-200">
+          <div className="bg-white rounded-airbnb-md p-4 shadow-airbnb-md border border-gray-100">
             <p className="text-sm text-gray-600 mb-1">Total Requests</p>
             <p className="text-2xl font-bold text-deep">{requests.length}</p>
           </div>
@@ -137,7 +137,7 @@ export default async function AdminRequestsPage({ params }: PageProps) {
               {pendingRequests.map((request) => (
                 <div
                   key={request.id}
-                  className="bg-white rounded-lg p-6 border-2 border-yellow-200 hover:shadow-md transition-shadow"
+                  className="bg-white rounded-airbnb-xl p-6 shadow-airbnb-md border border-yellow-100 hover:shadow-airbnb transition-shadow"
                 >
                   <div className="flex items-start gap-4">
                     {/* Cast Photo */}
@@ -227,7 +227,7 @@ export default async function AdminRequestsPage({ params }: PageProps) {
                         <div className="flex gap-2">
                           <button
                             type="submit"
-                            className="px-4 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors text-sm"
+                            className="px-4 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all shadow-sm hover:shadow-md text-sm"
                           >
                             ✓ Confirm Meeting
                           </button>
@@ -236,7 +236,7 @@ export default async function AdminRequestsPage({ params }: PageProps) {
                       <form action={`/api/admin/meeting-requests/${request.id}/cancel`} method="POST" className="mt-2">
                         <button
                           type="submit"
-                          className="w-full px-4 py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition-colors text-sm"
+                          className="w-full px-4 py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition-all shadow-sm hover:shadow-md text-sm"
                         >
                           ✗ Cancel Request
                         </button>

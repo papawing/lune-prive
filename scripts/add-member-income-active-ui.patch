@@ -1,0 +1,41 @@
+--- a/app/[locale]/admin/members/[id]/edit/page.tsx
++++ b/app/[locale]/admin/members/[id]/edit/page.tsx
+@@ -39,6 +39,9 @@ interface MemberData {
+   tier: string
+   isPaid: boolean
++  isActive: boolean
++  annualIncome?: number
++  incomeCurrency?: string
+   verificationNotes?: string
+   idDocumentUrl?: string
+   incomeProofUrl?: string
+@@ -66,10 +69,13 @@ export default function EditMemberPage() {
+     languages: [] as string[],
+     location: "",
+     occupation: "",
++    annualIncome: "" as number | "",
++    incomeCurrency: "USD" as "USD" | "JPY",
+     bio: { en: "", zh: "", ja: "" },
+     interests: [] as string[],
+     hobbies: [] as string[],
+     tier: "STANDARD" as "STANDARD" | "GOLD" | "VIP",
+     isPaid: false,
++    isActive: true,
+     verificationNotes: "",
+     idDocumentUrl: "",
+     incomeProofUrl: "",
+@@ -98,10 +104,13 @@ export default function EditMemberPage() {
+         languages: member.languages,
+         location: member.location || "",
+         occupation: member.occupation || "",
++        annualIncome: member.annualIncome || "",
++        incomeCurrency: (member.incomeCurrency || "USD") as "USD" | "JPY",
+         bio: { en: "", zh: "", ja: "", ...(member.bio as object || {}) },
+         interests: member.interests,
+         hobbies: member.hobbies,
+         tier: member.tier as "STANDARD" | "GOLD" | "VIP",
+         isPaid: member.isPaid,
++        isActive: member.isActive,
+         verificationNotes: member.verificationNotes || "",
+         idDocumentUrl: member.idDocumentUrl || "",
+         incomeProofUrl: member.incomeProofUrl || "",

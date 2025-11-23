@@ -1,8 +1,10 @@
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { redirect, Link } from "@/i18n/routing";
+import { redirect } from "@/i18n/routing";
+import { Link } from "@/i18n/routing";
 import { getTranslations, getLocale } from "next-intl/server";
+import { headers } from "next/headers";
 import Navbar from "@/components/shared/Navbar";
 import PhotoGallery from "@/components/cast/PhotoGallery";
 import BookmarkButton from "@/components/cast/BookmarkButton";
@@ -21,7 +23,7 @@ type PageProps = {
 
 export default async function CastDetailPage({ params }: PageProps) {
   const { castId } = await params;
-  const locale = await getLocale();
+  const locale = (await getLocale()) || "en";
   const session = await auth();
   const t = await getTranslations();
 
@@ -34,6 +36,12 @@ export default async function CastDetailPage({ params }: PageProps) {
   if (session.user.role !== "MEMBER" && session.user.role !== "ADMIN") {
     redirect("/");
   }
+
+  // Determine back URL based on referrer
+  const headersList = await headers();
+  const referer = headersList.get("referer") || "";
+  const isFromAdmin = referer.includes("/admin/casts");
+  const backUrl = isFromAdmin ? "/admin/casts" : "/browse";
 
   // Get member tier (not required for admins)
   let member = null;
@@ -101,7 +109,7 @@ export default async function CastDetailPage({ params }: PageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back Button */}
           <Link
-            href="/browse"
+            href={backUrl}
             className="inline-flex items-center gap-2 text-light hover:text-deep transition-colors mb-6"
           >
             <ArrowLeft className="w-5 h-5" />

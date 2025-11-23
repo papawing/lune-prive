@@ -43,13 +43,15 @@ export default function Navbar() {
 
           {/* Right Side - Navigation & Auth */}
           <div className="flex items-center gap-3">
-            {/* Become a Host (hidden on mobile) */}
-            <Link
-              href="/become-cast"
-              className="hidden md:block text-[#222222] font-semibold hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors"
-            >
-              {t("nav.becomeCast") || "Become a Cast"}
-            </Link>
+            {/* Become a Cast - Only show for non-logged-in users or non-members */}
+            {(!session?.user || (session.user.role !== "MEMBER" && session.user.role !== "CAST")) && (
+              <Link
+                href="/become-cast"
+                className="hidden md:block text-[#222222] font-semibold hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors"
+              >
+                {t("nav.becomeCast") || "Become a Cast"}
+              </Link>
+            )}
 
             {/* Language Switcher */}
             <DropdownMenu>
@@ -78,7 +80,7 @@ export default function Navbar() {
                   <svg className="w-4 h-4 text-deep" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   </svg>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white ${session?.user ? "bg-gradient-to-r from-[#FF385C] to-[#E61E4D]" : "bg-gray-400"}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white ${session?.user ? "bg-gradient-to-r from-[#4A9B8E] to-[#2D7A6E]" : "bg-gray-400"}`}>
                     {session?.user?.nickname ? (
                       <span className="text-sm font-semibold">{session.user.nickname[0].toUpperCase()}</span>
                     ) : (
@@ -144,7 +146,7 @@ export default function Navbar() {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                       onClick={handleLogout}
-                      className="cursor-pointer text-[#FF385C] focus:text-[#FF385C]"
+                      className="cursor-pointer text-[#4A9B8E] focus:text-[#4A9B8E]"
                     >
                       Log out
                     </DropdownMenuItem>

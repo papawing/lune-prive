@@ -95,7 +95,7 @@ export default async function AdminCastsPage({ params }: PageProps) {
           </div>
           <Link
             href="/admin/casts/new"
-            className="px-4 py-2 bg-gradient-to-r from-[#FF385C] to-[#E61E4D] text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+            className="px-4 py-2 bg-gradient-to-r from-[#4A9B8E] to-[#2D7A6E] text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
           >
             <span>+</span> Create Cast
           </Link>
@@ -103,7 +103,7 @@ export default async function AdminCastsPage({ params }: PageProps) {
 
         {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-lg p-4 border border-gray-200">
+          <div className="bg-white rounded-airbnb-md p-4 shadow-airbnb-md border border-gray-100">
             <p className="text-sm text-gray-600 mb-1">Total Casts</p>
             <p className="text-2xl font-bold text-deep">{casts.length}</p>
           </div>
@@ -115,7 +115,7 @@ export default async function AdminCastsPage({ params }: PageProps) {
             <p className="text-sm text-green-800 mb-1">Active</p>
             <p className="text-2xl font-bold text-green-900">{activeCasts.length}</p>
           </div>
-          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+          <div className="bg-gray-50 rounded-airbnb-md p-4 shadow-airbnb-md border border-gray-100">
             <p className="text-sm text-gray-600 mb-1">Inactive</p>
             <p className="text-2xl font-bold text-gray-700">{inactiveCasts.length}</p>
           </div>
@@ -132,7 +132,7 @@ export default async function AdminCastsPage({ params }: PageProps) {
               {pendingCasts.map((user) => (
                 <div
                   key={user.id}
-                  className="bg-white rounded-lg p-6 border-2 border-yellow-200 hover:shadow-md transition-shadow"
+                  className="bg-white rounded-airbnb-xl p-6 shadow-airbnb-md border border-yellow-100 hover:shadow-airbnb transition-shadow"
                 >
                   <div className="flex items-start gap-4">
                     {/* Photo */}
@@ -191,7 +191,7 @@ export default async function AdminCastsPage({ params }: PageProps) {
                       <form action={`/api/admin/casts/${user.id}/approve`} method="POST">
                         <button
                           type="submit"
-                          className="px-4 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors text-sm"
+                          className="px-4 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all shadow-sm hover:shadow-md text-sm"
                         >
                           ✓ Approve
                         </button>
@@ -199,7 +199,7 @@ export default async function AdminCastsPage({ params }: PageProps) {
                       <form action={`/api/admin/casts/${user.id}/reject`} method="POST">
                         <button
                           type="submit"
-                          className="px-4 py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition-colors text-sm"
+                          className="px-4 py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition-all shadow-sm hover:shadow-md text-sm"
                         >
                           ✗ Reject
                         </button>
@@ -223,7 +223,7 @@ export default async function AdminCastsPage({ params }: PageProps) {
               {activeCasts.map((user) => (
                 <div
                   key={user.id}
-                  className="bg-white rounded-lg p-4 border border-gray-200 hover:shadow-md transition-shadow"
+                  className="bg-white rounded-airbnb-md p-4 shadow-airbnb-md border border-gray-100 hover:shadow-md transition-shadow"
                 >
                   <div className="flex items-start gap-3">
                     <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
@@ -268,8 +268,7 @@ export default async function AdminCastsPage({ params }: PageProps) {
                     {user.cast?.id ? (
                       <Link
                         href={`/browse/${user.cast.id}`}
-                        locale={locale}
-                        className="flex-1 text-center text-xs text-rausch hover:underline font-semibold py-1"
+                        className="flex-1 text-center text-xs text-teal hover:underline font-semibold py-1"
                       >
                         View
                       </Link>
@@ -303,7 +302,7 @@ export default async function AdminCastsPage({ params }: PageProps) {
               <span className="text-2xl">💤</span>
               Inactive Casts ({inactiveCasts.length})
             </h2>
-            <div className="bg-white rounded-lg border border-gray-200 overflow-hidden opacity-75">
+            <div className="bg-white rounded-airbnb-md border border-gray-100 overflow-hidden opacity-75">
               <table className="w-full">
                 <thead className="bg-gray-50 border-b border-gray-200">
                   <tr>

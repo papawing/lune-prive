@@ -206,7 +206,7 @@ export default function CreateCastPage() {
                   onChange={handleChange}
                   required
                   autoComplete="off"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 />
               </div>
               <div>
@@ -219,7 +219,7 @@ export default function CreateCastPage() {
                   required
                   minLength={6}
                   autoComplete="new-password"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 />
               </div>
               <div>
@@ -230,7 +230,7 @@ export default function CreateCastPage() {
                   value={formData.nickname}
                   onChange={handleChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 />
               </div>
             </div>
@@ -250,7 +250,7 @@ export default function CreateCastPage() {
                   required
                   min={18}
                   max={99}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 />
               </div>
               <div>
@@ -260,7 +260,7 @@ export default function CreateCastPage() {
                   name="birthday"
                   value={formData.birthday}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 />
               </div>
               <div>
@@ -272,7 +272,7 @@ export default function CreateCastPage() {
                   onChange={handleChange}
                   required
                   placeholder="e.g., Tokyo, Roppongi"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 />
               </div>
             </div>
@@ -287,7 +287,7 @@ export default function CreateCastPage() {
                     onClick={() => handleArrayToggle("languages", lang.code)}
                     className={`px-3 py-1 rounded-full text-sm font-medium border transition-colors ${
                       formData.languages.includes(lang.code)
-                        ? "bg-[#FF385C] text-white border-[#FF385C]"
+                        ? "bg-[#4A9B8E] text-white border-[#4A9B8E]"
                         : "bg-white text-gray-700 border-gray-300 hover:border-gray-400"
                     }`}
                   >
@@ -311,7 +311,7 @@ export default function CreateCastPage() {
                   onChange={handleChange}
                   min={140}
                   max={200}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 />
               </div>
               <div>
@@ -323,7 +323,7 @@ export default function CreateCastPage() {
                   onChange={handleChange}
                   min={30}
                   max={150}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 />
               </div>
               <div>
@@ -332,7 +332,7 @@ export default function CreateCastPage() {
                   name="bustSize"
                   value={formData.bustSize}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 >
                   <option value="">Select</option>
                   {["A", "B", "C", "D", "E", "F", "G"].map(size => (
@@ -346,7 +346,7 @@ export default function CreateCastPage() {
                   name="englishLevel"
                   value={formData.englishLevel}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 >
                   <option value="">Select</option>
                   {ENGLISH_LEVELS.map(level => (
@@ -363,7 +363,7 @@ export default function CreateCastPage() {
                 value={formData.bodyMeasurements}
                 onChange={handleChange}
                 placeholder="e.g., B86 W58 H88"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
               />
             </div>
           </section>
@@ -381,7 +381,7 @@ export default function CreateCastPage() {
                   onClick={() => setActiveTab(lang)}
                   className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                     activeTab === lang
-                      ? "border-[#FF385C] text-[#FF385C]"
+                      ? "border-[#4A9B8E] text-[#4A9B8E]"
                       : "border-transparent text-gray-500 hover:text-gray-700"
                   }`}
                 >
@@ -397,7 +397,7 @@ export default function CreateCastPage() {
                   value={(formData.bio as Record<string, string>)[activeTab]}
                   onChange={(e) => handleMultilingualChange("bio", e.target.value)}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                   placeholder={`Enter bio in ${activeTab === "en" ? "English" : activeTab === "zh" ? "Chinese" : "Japanese"}`}
                 />
               </div>
@@ -407,7 +407,7 @@ export default function CreateCastPage() {
                   value={(formData.personality as Record<string, string>)[activeTab]}
                   onChange={(e) => handleMultilingualChange("personality", e.target.value)}
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 />
               </div>
               <div>
@@ -416,7 +416,7 @@ export default function CreateCastPage() {
                   value={(formData.appearance as Record<string, string>)[activeTab]}
                   onChange={(e) => handleMultilingualChange("appearance", e.target.value)}
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 />
               </div>
               <div>
@@ -425,7 +425,7 @@ export default function CreateCastPage() {
                   value={(formData.serviceStyle as Record<string, string>)[activeTab]}
                   onChange={(e) => handleMultilingualChange("serviceStyle", e.target.value)}
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 />
               </div>
               <div>
@@ -434,7 +434,7 @@ export default function CreateCastPage() {
                   value={(formData.preferredType as Record<string, string>)[activeTab]}
                   onChange={(e) => handleMultilingualChange("preferredType", e.target.value)}
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 />
               </div>
             </div>
@@ -454,7 +454,7 @@ export default function CreateCastPage() {
                     onClick={() => handleArrayToggle("hobbies", hobby)}
                     className={`px-3 py-1 rounded-full text-sm font-medium border transition-colors capitalize ${
                       formData.hobbies.includes(hobby)
-                        ? "bg-[#FF385C] text-white border-[#FF385C]"
+                        ? "bg-[#4A9B8E] text-white border-[#4A9B8E]"
                         : "bg-white text-gray-700 border-gray-300 hover:border-gray-400"
                     }`}
                   >
@@ -474,7 +474,7 @@ export default function CreateCastPage() {
                     onClick={() => handleArrayToggle("holidayStyle", style)}
                     className={`px-3 py-1 rounded-full text-sm font-medium border transition-colors capitalize ${
                       formData.holidayStyle.includes(style)
-                        ? "bg-[#FF385C] text-white border-[#FF385C]"
+                        ? "bg-[#4A9B8E] text-white border-[#4A9B8E]"
                         : "bg-white text-gray-700 border-gray-300 hover:border-gray-400"
                     }`}
                   >
@@ -497,7 +497,7 @@ export default function CreateCastPage() {
 
                   {/* Featured badge */}
                   {index === 0 && (
-                    <div className="absolute top-2 left-2 px-2 py-1 bg-[#FF385C] text-white text-xs font-medium rounded">
+                    <div className="absolute top-2 left-2 px-2 py-1 bg-[#4A9B8E] text-white text-xs font-medium rounded">
                       Featured
                     </div>
                   )}
@@ -534,7 +534,7 @@ export default function CreateCastPage() {
                       <button
                         type="button"
                         onClick={() => handleSetFeatured(index)}
-                        className="px-3 py-1 bg-[#FF385C] text-white rounded text-xs font-medium"
+                        className="px-3 py-1 bg-[#4A9B8E] text-white rounded text-xs font-medium"
                       >
                         Set Featured
                       </button>
@@ -550,7 +550,7 @@ export default function CreateCastPage() {
                   </div>
                 </div>
               ))}
-              <label className={`aspect-[4/5] rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 hover:border-[#FF385C] hover:text-[#FF385C] transition-colors cursor-pointer ${isUploading ? "opacity-50 pointer-events-none" : ""}`}>
+              <label className={`aspect-[4/5] rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 hover:border-[#4A9B8E] hover:text-[#4A9B8E] transition-colors cursor-pointer ${isUploading ? "opacity-50 pointer-events-none" : ""}`}>
                 <input
                   type="file"
                   accept="image/jpeg,image/png,image/webp,image/gif"
@@ -584,7 +584,7 @@ export default function CreateCastPage() {
                   name="tierClassification"
                   value={formData.tierClassification}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF385C] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4A9B8E] focus:border-transparent"
                 >
                   <option value="STANDARD">Standard</option>
                   <option value="HIGH_CLASS">High Class</option>
@@ -597,7 +597,7 @@ export default function CreateCastPage() {
                   name="isActive"
                   checked={formData.isActive}
                   onChange={handleChange}
-                  className="w-4 h-4 text-[#FF385C] rounded border-gray-300 focus:ring-[#FF385C]"
+                  className="w-4 h-4 text-[#4A9B8E] rounded border-gray-300 focus:ring-[#4A9B8E]"
                 />
                 <label htmlFor="isActive" className="text-sm font-medium text-gray-700">
                   Active (visible to members)
@@ -610,7 +610,7 @@ export default function CreateCastPage() {
                   name="isFeatured"
                   checked={formData.isFeatured}
                   onChange={handleChange}
-                  className="w-4 h-4 text-[#FF385C] rounded border-gray-300 focus:ring-[#FF385C]"
+                  className="w-4 h-4 text-[#4A9B8E] rounded border-gray-300 focus:ring-[#4A9B8E]"
                 />
                 <label htmlFor="isFeatured" className="text-sm font-medium text-gray-700">
                   Featured (shown in featured section)
@@ -623,14 +623,14 @@ export default function CreateCastPage() {
           <div className="flex gap-4">
             <Link
               href="/admin/casts"
-              className="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+              className="px-6 py-3 border-2 border-deep rounded-lg font-semibold text-deep hover:bg-gray-50 transition-colors"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 px-6 py-3 bg-gradient-to-r from-[#FF385C] to-[#E61E4D] text-white rounded-lg font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-6 py-3 bg-gradient-to-r from-[#4A9B8E] to-[#2D7A6E] text-white rounded-lg font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Creating..." : "Create Cast"}
             </button>

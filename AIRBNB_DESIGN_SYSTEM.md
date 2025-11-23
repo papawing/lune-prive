@@ -25,9 +25,11 @@
 
 ### Color System
 
-#### Primary Palette (Airbnb-Inspired)
+#### Primary Palette (LUNE PRIVÉ Teal Theme)
 ```css
---color-rausch: #FF385C        /* Airbnb primary (2025 authentic) */
+--color-teal: #4A9B8E          /* LUNE PRIVÉ primary (from favicon) */
+--color-mint: #A8D5C5          /* Light teal accent */
+--color-deep-teal: #2D7A6E     /* Dark teal for depth */
 --color-deep: #222222          /* Primary text */
 --color-light: #717171         /* Secondary text */
 --color-babu: #00A699          /* Success/trust indicator */
@@ -39,7 +41,7 @@
 ```css
 --color-gold-vibrant: #FFD700  /* Premium features */
 --color-champagne: #F7E7CE     /* Subtle backgrounds */
---color-rose-gold: #B76E79     /* Romance/connection */
+--color-moonlight: #68BDA8     /* Moonlit elegance */
 ```
 
 #### Neutrals & Grays

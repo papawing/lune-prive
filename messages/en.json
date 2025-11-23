@@ -114,7 +114,20 @@
       "title": "Unlock Premium Access",
       "description": "Access our exclusive High-Class members and enjoy premium features",
       "button": "Upgrade to Premium"
-    }
+    },
+    "searchPlaceholder": "Search by name...",
+    "sortBy": "Sort by",
+    "sortFeatured": "Featured First",
+    "sortNewest": "Newest First",
+    "sortYoungest": "Age: Youngest",
+    "sortOldest": "Age: Oldest",
+    "activeFilters": "Active Filters",
+    "clearAllFilters": "Clear All Filters",
+    "castsFound": "{count} casts",
+    "filterAge": "Age",
+    "filterLanguages": "Languages",
+    "filterLocation": "Location",
+    "filterInterests": "Interests"
   },
   "bookmarks": {
     "title": "Saved",
@@ -171,5 +184,162 @@
     "markPaid": "Mark as Paid",
     "coordinateMeeting": "Coordinate Meeting",
     "confirmBooking": "Confirm Booking"
+  },
+  "dashboard": {
+    "welcome": "Welcome to LUNE PRIVÉ",
+    "welcomeName": "Welcome to LUNE PRIVÉ, {name}",
+    "tagline": "Find your perfect drinking companion tonight",
+    "discoverCasts": "Discover Casts",
+    "yourBookmarks": "Your Bookmarks",
+    "stats": {
+      "castsAvailable": "Casts Available",
+      "savedFavorites": "Saved Favorites",
+      "pendingRequests": "Pending Requests"
+    },
+    "featuredTonight": "Featured Tonight",
+    "yourFavorites": "Your Favorites",
+    "yourRequests": "Your Requests",
+    "viewAll": "View All",
+    "discoverMore": "Discover More",
+    "readyToMeet": "Ready to Meet Someone?",
+    "browseCollection": "Browse our full collection of casts",
+    "exploreAll": "Explore All Casts",
+    "upgradeAccess": "Premium Access: High-Class Casts",
+    "upgradeNow": "Upgrade to Premium",
+    "noCastsYet": "Start exploring our members",
+    "requestedOn": "Requested"
+  },
+  "landing": {
+    "hero": {
+      "title": "Find Your Perfect Japanese Companion",
+      "subtitle": "Luxury Drinking Experiences. Curated Companions. Enjoy Tokyo Nights.",
+      "ctaPrimary": "Explore Companions",
+      "ctaSecondary": "Learn More",
+      "trustBadge1": "Verified Profiles",
+      "trustBadge2": "Secure Platform",
+      "trustBadge3": "Multilingual"
+    },
+    "features": {
+      "title": "Why Choose LUNE PRIVÉ",
+      "curated": "Curated Selection",
+      "curatedDesc": "Meet verified companions fluent in English, Chinese & Japanese",
+      "secure": "Discreet & Secure",
+      "secureDesc": "Your privacy is our priority. Verified profiles, encrypted communication",
+      "experience": "Roppongi Experience",
+      "experienceDesc": "Experience Tokyo's most vibrant nightlife district with local expertise"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Simple steps to elevate your evening",
+      "step1Title": "Browse",
+      "step1Desc": "View verified companion profiles with detailed information and photos",
+      "step2Title": "Connect",
+      "step2Desc": "Send booking request with your preferences and desired meeting time",
+      "step3Title": "Meet",
+      "step3Desc": "Enjoy your curated evening at premium venues in Roppongi",
+      "step4Title": "Review",
+      "step4Desc": "Share your experience to help our community grow"
+    },
+    "featuredCasts": {
+      "title": "Featured Companions",
+      "subtitle": "Meet some of our most popular companions",
+      "viewAll": "View All Companions"
+    },
+    "membership": {
+      "title": "Choose Your Membership",
+      "subtitle": "Select the tier that matches your lifestyle",
+      "standard": {
+        "name": "Standard",
+        "price": "From ¥10,000/month",
+        "feature1": "Access to standard companions",
+        "feature2": "Basic profile browsing",
+        "feature3": "Secure messaging",
+        "feature4": "Standard support",
+        "cta": "Get Started"
+      },
+      "gold": {
+        "name": "Gold",
+        "price": "From ¥25,000/month",
+        "feature1": "All Standard features",
+        "feature2": "Priority booking",
+        "feature3": "Extended companion profiles",
+        "feature4": "Priority support",
+        "cta": "Choose Gold",
+        "popular": "Most Popular"
+      },
+      "vip": {
+        "name": "VIP",
+        "price": "From ¥50,000/month",
+        "feature1": "All Gold features",
+        "feature2": "Access to high-class companions",
+        "feature3": "Personal concierge service",
+        "feature4": "24/7 VIP support",
+        "cta": "Go VIP"
+      }
+    },
+    "testimonials": {
+      "title": "What Our Members Say",
+      "subtitle": "Real experiences from our verified members",
+      "testimonial1": {
+        "text": "The level of discretion and professionalism exceeded my expectations. Every detail was carefully handled.",
+        "author": "M.T.",
+        "location": "Tokyo"
+      },
+      "testimonial2": {
+        "text": "I found the perfect companion for business dinners. Fluent in English and very sophisticated.",
+        "author": "J.K.",
+        "location": "Singapore"
+      },
+      "testimonial3": {
+        "text": "The verification process made me feel secure. Quality over quantity - exactly what I needed.",
+        "author": "R.L.",
+        "location": "New York"
+      }
+    },
+    "location": {
+      "title": "Why Roppongi?",
+      "subtitle": "Tokyo's premier nightlife destination",
+      "feature1": "International atmosphere with multilingual venues",
+      "feature2": "Premium bars, restaurants, and exclusive lounges",
+      "feature3": "Safe, accessible, and well-connected location",
+      "feature4": "Heart of Tokyo's sophisticated entertainment scene"
+    },
+    "trust": {
+      "title": "Trust & Safety",
+      "subtitle": "Your security is our top priority",
+      "verification": {
+        "title": "ID Verification Required",
+        "desc": "All members undergo thorough verification"
+      },
+      "payment": {
+        "title": "Secure Payment Processing",
+        "desc": "Bank-level encryption for all transactions"
+      },
+      "support": {
+        "title": "24/7 Support Team",
+        "desc": "Always here when you need assistance"
+      },
+      "privacy": {
+        "title": "Privacy Guaranteed",
+        "desc": "Your information is never shared"
+      }
+    },
+    "finalCTA": {
+      "title": "Ready to Elevate Your Evening?",
+      "subtitle": "Join Tokyo's most exclusive companion platform",
+      "ctaPrimary": "Join Now",
+      "ctaSecondary": "Browse Companions",
+      "note": "Verification required • Discreet & Professional"
+    },
+    "footer": {
+      "about": "About Us",
+      "howItWorks": "How It Works",
+      "safety": "Safety & Privacy",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "contact": "Contact Us",
+      "copyright": "© 2025 LUNE PRIVÉ. All rights reserved.",
+      "location": "Roppongi, Tokyo"
+    }
   }
 }

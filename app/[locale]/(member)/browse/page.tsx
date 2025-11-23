@@ -6,10 +6,11 @@ import Navbar from "@/components/shared/Navbar";
 import BrowseClient from "@/components/browse/BrowseClient";
 
 type PageProps = {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
 export default async function BrowsePage({ params }: PageProps) {
+  const { locale } = await params;
   const session = await auth();
   const t = await getTranslations();
 
@@ -33,8 +34,10 @@ export default async function BrowsePage({ params }: PageProps) {
   }
 
   // Tier-based filtering
+  // STANDARD members can only see STANDARD casts
+  // GOLD and VIP members can see both STANDARD and HIGH_CLASS casts
   const tierFilter =
-    member.tier === "PREMIUM"
+    member.tier === "VIP" || member.tier === "GOLD"
       ? { tierClassification: { in: ["STANDARD", "HIGH_CLASS"] as Array<"STANDARD" | "HIGH_CLASS"> } }
       : { tierClassification: "STANDARD" as "STANDARD" };
 
@@ -77,17 +80,17 @@ export default async function BrowsePage({ params }: PageProps) {
             {t("browse.title")}
           </h1>
           <p className="text-light text-base md:text-lg max-w-2xl">
-            {member.tier === "PREMIUM"
+            {member.tier === "VIP" || member.tier === "GOLD"
               ? t("browse.premiumAccess")
               : t("browse.basicAccess")}
           </p>
         </div>
 
         {/* Client-side Browse with Filters */}
-        <BrowseClient initialCasts={casts} locale={params.locale} />
+        <BrowseClient initialCasts={casts} locale={locale} />
 
-        {/* Upgrade CTA for Basic Members - Airbnb Style */}
-        {member.tier === "BASIC" && (
+        {/* Upgrade CTA for Standard Members - Airbnb Style */}
+        {member.tier === "STANDARD" && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mt-20 bg-gradient-luxury rounded-airbnb-xl p-8 md:p-12 text-center shadow-airbnb-xl overflow-hidden relative">
               <div className="absolute inset-0 bg-gradient-to-br from-rose-gold/20 to-champagne/20"></div>

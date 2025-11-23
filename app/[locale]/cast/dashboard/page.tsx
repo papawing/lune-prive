@@ -101,20 +101,20 @@ export default async function CastDashboardPage({ params }: PageProps) {
 
         {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <div className="bg-white p-6 rounded-airbnb-md shadow-airbnb-md border border-gray-100">
             <div className="text-2xl font-bold text-deep">{pendingCount}</div>
             <div className="text-sm text-gray-600">Pending Requests</div>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <div className="bg-white p-6 rounded-airbnb-md shadow-airbnb-md border border-gray-100">
             <div className="text-2xl font-bold text-teal-600">{confirmedCount}</div>
             <div className="text-sm text-gray-600">Upcoming Meetings</div>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <div className="bg-white p-6 rounded-airbnb-md shadow-airbnb-md border border-gray-100">
             <div className="text-2xl font-bold text-green-600">{completedCount}</div>
             <div className="text-sm text-gray-600">Completed</div>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <div className="text-2xl font-bold text-rausch">{totalBookmarks}</div>
+          <div className="bg-white p-6 rounded-airbnb-md shadow-airbnb-md border border-gray-100">
+            <div className="text-2xl font-bold text-teal">{totalBookmarks}</div>
             <div className="text-sm text-gray-600">Bookmarks</div>
           </div>
         </div>
@@ -123,13 +123,13 @@ export default async function CastDashboardPage({ params }: PageProps) {
           {/* Main Content - Recent Activity */}
           <div className="lg:col-span-2 space-y-6">
             {/* Recent Meeting Requests */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div className="bg-white rounded-airbnb-md shadow-airbnb-md border border-gray-100">
               <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-deep">Recent Meeting Requests</h2>
                 <Link
                   href="/cast/requests"
                   locale={locale}
-                  className="text-sm text-rausch hover:text-red-700 font-semibold"
+                  className="text-sm text-teal hover:text-red-700 font-semibold"
                 >
                   View All →
                 </Link>
@@ -182,7 +182,7 @@ export default async function CastDashboardPage({ params }: PageProps) {
           {/* Sidebar - Quick Actions & Profile Info */}
           <div className="space-y-6">
             {/* Quick Actions */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <div className="bg-white rounded-airbnb-md shadow-airbnb-md border border-gray-100 p-6">
               <h2 className="text-lg font-semibold text-deep mb-4">Quick Actions</h2>
               <div className="space-y-3">
                 <Link
@@ -202,7 +202,7 @@ export default async function CastDashboardPage({ params }: PageProps) {
             </div>
 
             {/* Profile Summary */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <div className="bg-white rounded-airbnb-md shadow-airbnb-md border border-gray-100 p-6">
               <h2 className="text-lg font-semibold text-deep mb-4">Profile Summary</h2>
               <div className="space-y-3">
                 <div>

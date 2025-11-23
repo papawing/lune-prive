@@ -13,20 +13,20 @@ datasource db {
 // ========== User Management ==========
 
 model User {
-  id                String   @id @default(cuid())
-  email             String   @unique
-  passwordHash      String   @map("password_hash")
-  role              Role     @default(MEMBER)
-  nickname          String
-  createdAt         DateTime @default(now()) @map("created_at")
-  verifiedAt        DateTime? @map("verified_at")
+  id                 String             @id @default(cuid())
+  email              String             @unique
+  passwordHash       String             @map("password_hash")
+  role               Role               @default(MEMBER)
+  nickname           String
+  createdAt          DateTime           @default(now()) @map("created_at")
+  verifiedAt         DateTime?          @map("verified_at")
   verificationStatus VerificationStatus @default(PENDING) @map("verification_status")
-  locale            String   @default("en") // "en" | "zh"
+  locale             String             @default("en") // "en" | "zh"
 
   // Relations
-  member            Member?
-  cast              Cast?
-  adminActions      AdminLog[] @relation("AdminActions")
+  member       Member?
+  cast         Cast?
+  adminActions AdminLog[] @relation("AdminActions")
 
   @@index([email])
   @@index([role, verificationStatus])
@@ -48,83 +48,121 @@ enum VerificationStatus {
 // ========== Members (Men) ==========
 
 model Member {
-  id                String   @id @default(cuid())
-  userId            String   @unique @map("user_id")
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String @unique @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  tier              MemberTier @default(BASIC)
-  isPaid            Boolean  @default(false) @map("is_paid") // manually updated by admin
+  tier     MemberTier @default(STANDARD)
+  isPaid   Boolean    @default(false) @map("is_paid") // manually updated by admin
+  isActive Boolean    @default(true) @map("is_active") // admin can activate/deactivate
 
-  idDocumentUrl     String?  @map("id_document_url")
-  incomeProofUrl    String?  @map("income_proof_url")
-  verificationNotes String?  @map("verification_notes")
+  // Profile Information
+  age            Int?
+  languages      String[]        @default([])
+  location       String? // General area: "Roppongi", "Shibuya"
+  occupation     String?
+  annualIncome   Int?            @map("annual_income") // Annual income in USD or JPY
+  incomeCurrency IncomeCurrency? @default(USD) @map("income_currency")
 
-  approvedByAdminId String?  @map("approved_by_admin_id")
+  // Multilingual Content
+  bio Json? @db.Json // { en: "...", zh: "...", ja: "..." }
+
+  // Interests & Lifestyle
+  interests String[] @default([]) // ["travel", "gourmet", "art"]
+  hobbies   String[] @default([]) // Similar to casts
+
+  // Verification Documents
+  idDocumentUrl     String? @map("id_document_url")
+  verificationNotes String? @map("verification_notes")
+
+  approvedByAdminId String?   @map("approved_by_admin_id")
   approvedAt        DateTime? @map("approved_at")
 
   // Relations
-  bookmarks         Bookmark[]
-  meetingRequests   MeetingRequest[]
+  bookmarks       Bookmark[]
+  meetingRequests MeetingRequest[]
+  photos          MemberPhoto[]
 
-  @@index([tier, isPaid])
+  @@index([tier, isPaid, isActive])
+  @@index([age])
   @@map("members")
 }
 
+// Member Photos
+model MemberPhoto {
+  id           String   @id @default(cuid())
+  memberId     String   @map("member_id")
+  member       Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  photoUrl     String   @map("photo_url")
+  displayOrder Int      @default(0) @map("display_order")
+  isVerified   Boolean  @default(false) @map("is_verified")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@index([memberId, displayOrder])
+  @@map("member_photos")
+}
+
 enum MemberTier {
-  BASIC
-  PREMIUM
+  STANDARD // Tier 1
+  GOLD // Tier 2
+  VIP // Tier 3
+}
+
+enum IncomeCurrency {
+  USD
+  JPY
 }
 
 // ========== Casts (Girls) ==========
 
 model Cast {
-  id                String   @id @default(cuid())
-  userId            String   @unique @map("user_id")
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String @unique @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Classification & Status
-  tierClassification CastTier @default(STANDARD) @map("tier_classification") // admin assigns
-  isActive          Boolean  @default(false) @map("is_active") // admin activates
-  isFeatured        Boolean  @default(false) @map("is_featured") // featured section
-  approvedByAdminId String?  @map("approved_by_admin_id")
-  approvedAt        DateTime? @map("approved_at")
+  tierClassification CastTier  @default(STANDARD) @map("tier_classification") // admin assigns
+  isActive           Boolean   @default(false) @map("is_active") // admin activates
+  isFeatured         Boolean   @default(false) @map("is_featured") // featured section
+  approvedByAdminId  String?   @map("approved_by_admin_id")
+  approvedAt         DateTime? @map("approved_at")
 
   // Basic Information
-  age               Int
-  birthday          DateTime? // Birthday (month/day display)
-  location          String   // district/area only
-  languages         String[] // ["en", "zh", "ja"]
+  age       Int
+  birthday  DateTime? // Birthday (month/day display)
+  location  String // district/area only
+  languages String[] // ["en", "zh", "ja"]
 
   // Physical Attributes
-  bustSize          String?  @map("bust_size") // "A", "B", "C", "D", etc.
-  height            Int?     // in cm
-  weight            Int?     // in kg
-  bodyMeasurements  String?  @map("body_measurements") // freeform backup
+  bustSize         String? @map("bust_size") // "A", "B", "C", "D", etc.
+  height           Int? // in cm
+  weight           Int? // in kg
+  bodyMeasurements String? @map("body_measurements") // freeform backup
 
   // Language Proficiency
-  englishLevel      String?  @map("english_level") // "Native", "Fluent", "Conversational", "Basic"
+  englishLevel String? @map("english_level") // "Native", "Fluent", "Conversational", "Basic"
 
   // Profile Content - Multilingual JSON
-  bio               Json?    @db.Json // { en: "...", zh: "...", ja: "..." }
-  personality       Json?    @db.Json // { en: "...", zh: "...", ja: "..." }
-  appearance        Json?    @db.Json // { en: "...", zh: "...", ja: "..." }
-  serviceStyle      Json?    @db.Json @map("service_style") // { en: "...", zh: "...", ja: "..." }
+  bio          Json? @db.Json // { en: "...", zh: "...", ja: "..." }
+  personality  Json? @db.Json // { en: "...", zh: "...", ja: "..." }
+  appearance   Json? @db.Json // { en: "...", zh: "...", ja: "..." }
+  serviceStyle Json? @map("service_style") @db.Json // { en: "...", zh: "...", ja: "..." }
 
   // Preferences - Multilingual JSON
-  preferredType     Json?    @db.Json @map("preferred_type") // { en: "...", zh: "...", ja: "..." }
+  preferredType Json? @map("preferred_type") @db.Json // { en: "...", zh: "...", ja: "..." }
 
   // Lifestyle - Arrays for multi-select
-  hobbies           String[] @default([]) // ["gourmet", "beauty", "music", "travel", ...]
-  holidayStyle      String[] @default([]) @map("holiday_style") // ["home", "cafe", "shopping", "travel", ...]
+  hobbies      String[] @default([]) // ["gourmet", "beauty", "music", "travel", ...]
+  holidayStyle String[] @default([]) @map("holiday_style") // ["home", "cafe", "shopping", "travel", ...]
 
   // Legacy/Additional
   interests         String[] @default([]) // Keep for backward compatibility
   availabilityNotes String?  @map("availability_notes")
 
   // Relations
-  photos            CastPhoto[]
-  bookmarks         Bookmark[]
-  meetingRequests   MeetingRequest[]
+  photos          CastPhoto[]
+  bookmarks       Bookmark[]
+  meetingRequests MeetingRequest[]
 
   @@index([tierClassification, isActive])
   @@index([isActive, isFeatured])
@@ -132,21 +170,21 @@ model Cast {
 }
 
 enum CastTier {
-  STANDARD     // accessible to Basic members
-  HIGH_CLASS   // accessible to Premium members only
+  STANDARD // accessible to Basic members
+  HIGH_CLASS // accessible to Premium members only
 }
 
 // ========== Cast Photos ==========
 
 model CastPhoto {
-  id            String   @id @default(cuid())
-  castId        String   @map("cast_id")
-  cast          Cast     @relation(fields: [castId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  castId String @map("cast_id")
+  cast   Cast   @relation(fields: [castId], references: [id], onDelete: Cascade)
 
-  photoUrl      String   @map("photo_url")
-  isVerified    Boolean  @default(false) @map("is_verified") // admin marks as verified
-  displayOrder  Int      @default(0) @map("display_order")
-  createdAt     DateTime @default(now()) @map("created_at")
+  photoUrl     String   @map("photo_url")
+  isVerified   Boolean  @default(false) @map("is_verified") // admin marks as verified
+  displayOrder Int      @default(0) @map("display_order")
+  createdAt    DateTime @default(now()) @map("created_at")
 
   @@index([castId, displayOrder])
   @@map("cast_photos")
@@ -170,18 +208,18 @@ model Bookmark {
 // ========== Meeting Requests ==========
 
 model MeetingRequest {
-  id              String   @id @default(cuid())
-  memberId        String   @map("member_id")
-  member          Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
-  castId          String   @map("cast_id")
-  cast            Cast     @relation(fields: [castId], references: [id], onDelete: Cascade)
+  id       String @id @default(cuid())
+  memberId String @map("member_id")
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  castId   String @map("cast_id")
+  cast     Cast   @relation(fields: [castId], references: [id], onDelete: Cascade)
 
-  requestedAt     DateTime @default(now()) @map("requested_at")
-  status          RequestStatus @default(PENDING)
+  requestedAt DateTime      @default(now()) @map("requested_at")
+  status      RequestStatus @default(PENDING)
 
-  adminNotes      String?  @map("admin_notes") @db.Text
-  scheduledDate   DateTime? @map("scheduled_date")
-  luneLocation    String?  @map("lune_location") // "Roppongi Main" or other venues
+  adminNotes    String?   @map("admin_notes") @db.Text
+  scheduledDate DateTime? @map("scheduled_date")
+  luneLocation  String?   @map("lune_location") // "Roppongi Main" or other venues
 
   @@index([status, requestedAt])
   @@index([memberId])
@@ -199,9 +237,9 @@ enum RequestStatus {
 // ========== Admin Activity Log ==========
 
 model AdminLog {
-  id           String   @id @default(cuid())
-  adminId      String   @map("admin_id")
-  admin        User     @relation("AdminActions", fields: [adminId], references: [id])
+  id      String @id @default(cuid())
+  adminId String @map("admin_id")
+  admin   User   @relation("AdminActions", fields: [adminId], references: [id])
 
   actionType   String   @map("action_type") // "APPROVE_MEMBER", "CREATE_CAST", "CONFIRM_BOOKING"
   targetUserId String?  @map("target_user_id")

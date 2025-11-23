@@ -24,7 +24,8 @@
     "messages": "メッセージ",
     "profile": "プロフィール",
     "admin": "管理",
-    "logout": "ログアウト"
+    "logout": "ログアウト",
+    "becomeCast": "キャストになる"
   },
   "auth": {
     "login": "ログイン",
@@ -35,6 +36,9 @@
     "forgotPassword": "パスワードをお忘れですか？",
     "noAccount": "アカウントをお持ちでないですか？",
     "hasAccount": "すでにアカウントをお持ちですか？",
+    "welcomeBack": "おかえりなさい",
+    "loginPrompt": "続行するには資格情報を入力してください",
+    "secureLogin": "お客様の情報は安全に暗号化されています",
     "loginSuccess": "ログインに成功しました",
     "loginError": "メールアドレスまたはパスワードが無効です",
     "registerSuccess": "登録が完了しました。認証をお待ちください。",
@@ -84,6 +88,30 @@
     "hobbies": "趣味",
     "holidayStyle": "休日の過ごし方"
   },
+  "dashboard": {
+    "welcome": "LUNE PRIVÉ へようこそ",
+    "welcomeName": "LUNE PRIVÉ へようこそ、{name}さん",
+    "tagline": "今夜完璧な飲み仲間を見つけましょう",
+    "discoverCasts": "キャストを発見",
+    "yourBookmarks": "あなたのブックマーク",
+    "stats": {
+      "castsAvailable": "利用可能なキャスト",
+      "savedFavorites": "保存済みお気に入り",
+      "pendingRequests": "保留中のリクエスト"
+    },
+    "featuredTonight": "今夜の注目",
+    "yourFavorites": "お気に入り",
+    "yourRequests": "あなたのリクエスト",
+    "viewAll": "すべて表示",
+    "discoverMore": "もっと発見",
+    "readyToMeet": "誰かと会う準備はできましたか？",
+    "browseCollection": "キャストの完全なコレクションを閲覧",
+    "exploreAll": "すべてのキャストを探索",
+    "upgradeAccess": "プレミアムアクセス：ハイクラスキャスト",
+    "upgradeNow": "今すぐプレミアムにアップグレード",
+    "noCastsYet": "メンバーを探索し始める",
+    "requestedOn": "リクエスト日"
+  },
   "browse": {
     "title": "発見",
     "featuredTitle": "注目",
@@ -91,19 +119,61 @@
     "premiumAccess": "すべてのプレミアムメンバーにアクセスできます",
     "basicAccess": "ハイクラスメンバーにアクセスするにはプレミアムにアップグレード",
     "noCasts": "現在メンバーはいません",
+    "tryDifferentFilters": "フィルターを調整してみてください",
     "featured": "注目のメンバー",
     "filters": "フィルター",
     "ageRange": "年齢範囲",
+    "languages": "言語",
+    "location": "場所",
+    "allLocations": "すべての場所",
+    "interests": "趣味",
+    "applyFilters": "フィルターを適用",
+    "clear": "クリア",
     "noResults": "結果が見つかりません",
     "loadMore": "さらに読み込む",
     "bookmark": "保存",
     "bookmarked": "保存済み",
     "viewProfile": "プロフィールを見る",
+    "searchPlaceholder": "名前で検索...",
+    "sortBy": "並べ替え",
+    "sortFeatured": "注目順",
+    "sortNewest": "最新順",
+    "sortYoungest": "年齢：若い順",
+    "sortOldest": "年齢：年上順",
+    "activeFilters": "アクティブなフィルター",
+    "clearAllFilters": "すべてのフィルターをクリア",
+    "castsFound": "{count} 人のキャスト",
+    "filterAge": "年齢",
+    "filterLanguages": "言語",
+    "filterLocation": "場所",
+    "filterInterests": "趣味",
     "upgradeCTA": {
       "title": "プレミアムアクセスをアンロック",
       "description": "限定のハイクラスメンバーにアクセスしてプレミアム機能をお楽しみください",
       "button": "プレミアムにアップグレード"
     }
+  },
+  "bookmarks": {
+    "title": "保存済み",
+    "description": "保存されたメンバー",
+    "emptyDescription": "お気に入りのメンバーを保存し始める",
+    "empty": "まだ保存されたメンバーはいません",
+    "emptyHint": "メンバーを閲覧してお気に入りを保存",
+    "browseCasts": "メンバーを閲覧",
+    "totalSaved": "保存されたメンバー"
+  },
+  "requests": {
+    "title": "会うリクエスト",
+    "description": "あなたの会うリクエスト",
+    "emptyDescription": "まだ会うリクエストはありません",
+    "empty": "会うリクエストはありません",
+    "emptyHint": "メンバーを閲覧して会うをリクエスト",
+    "browseCasts": "メンバーを閲覧",
+    "pending": "保留中",
+    "confirmed": "確認済み",
+    "history": "履歴",
+    "requestedOn": "リクエスト日",
+    "awaitingAdmin": "管理者による調整を待っています"
   },
   "meeting": {
     "request": "会うリクエスト",
@@ -138,5 +208,138 @@
     "markPaid": "支払い済みとしてマーク",
     "coordinateMeeting": "会うを調整",
     "confirmBooking": "予約を確認"
+  },
+  "landing": {
+    "hero": {
+      "title": "あなたにぴったりの日本人コンパニオンを見つける",
+      "subtitle": "ラグジュアリーな飲み体験。厳選されたコンパニオン。東京の夜を楽しむ。",
+      "ctaPrimary": "コンパニオンを探す",
+      "ctaSecondary": "詳しく見る",
+      "trustBadge1": "認証済みプロフィール",
+      "trustBadge2": "安全なプラットフォーム",
+      "trustBadge3": "多言語対応"
+    },
+    "features": {
+      "title": "LUNE PRIVÉを選ぶ理由",
+      "curated": "厳選されたコンパニオン",
+      "curatedDesc": "英語、中国語、日本語が堪能な認証済みコンパニオンとの出会い",
+      "secure": "慎重かつ安全",
+      "secureDesc": "プライバシーを最優先。認証済みプロフィール、暗号化通信",
+      "experience": "六本木体験",
+      "experienceDesc": "地元の専門知識で、東京で最も活気のあるナイトライフ地区を体験"
+    },
+    "howItWorks": {
+      "title": "ご利用の流れ",
+      "subtitle": "シンプルなステップで素敵な夜を",
+      "step1Title": "閲覧",
+      "step1Desc": "詳細情報と写真付きの認証済みコンパニオンプロフィールを閲覧",
+      "step2Title": "予約",
+      "step2Desc": "ご希望の条件と希望日時をお知らせください",
+      "step3Title": "お会いする",
+      "step3Desc": "六本木のプレミアム会場で厳選された夜をお楽しみください",
+      "step4Title": "レビュー",
+      "step4Desc": "体験を共有してコミュニティの成長にご協力ください"
+    },
+    "featuredCasts": {
+      "title": "注目のコンパニオン",
+      "subtitle": "人気のコンパニオンをご紹介",
+      "viewAll": "すべてのコンパニオンを見る"
+    },
+    "membership": {
+      "title": "会員プランをお選びください",
+      "subtitle": "ライフスタイルに合ったプランを",
+      "standard": {
+        "name": "スタンダード",
+        "price": "月額¥10,000〜",
+        "feature1": "スタンダードコンパニオンへのアクセス",
+        "feature2": "基本的なプロフィール閲覧",
+        "feature3": "安全なメッセージング",
+        "feature4": "スタンダードサポート",
+        "cta": "始める"
+      },
+      "gold": {
+        "name": "ゴールド",
+        "price": "月額¥25,000〜",
+        "feature1": "スタンダード機能すべて",
+        "feature2": "優先予約",
+        "feature3": "詳細なコンパニオンプロフィール",
+        "feature4": "優先サポート",
+        "cta": "ゴールドを選ぶ",
+        "popular": "人気"
+      },
+      "vip": {
+        "name": "VIP",
+        "price": "月額¥50,000〜",
+        "feature1": "ゴールド機能すべて",
+        "feature2": "ハイクラスコンパニオンへのアクセス",
+        "feature3": "パーソナルコンシェルジュサービス",
+        "feature4": "24時間VIPサポート",
+        "cta": "VIPになる"
+      }
+    },
+    "testimonials": {
+      "title": "会員の声",
+      "subtitle": "認証済み会員の実際の体験",
+      "testimonial1": {
+        "text": "慎重さとプロフェッショナリズムのレベルは期待を超えていました。すべての詳細が丁寧に処理されました。",
+        "author": "M.T.様",
+        "location": "東京"
+      },
+      "testimonial2": {
+        "text": "ビジネスディナーに最適なコンパニオンを見つけました。英語が堪能で非常に洗練されています。",
+        "author": "J.K.様",
+        "location": "シンガポール"
+      },
+      "testimonial3": {
+        "text": "認証プロセスにより安心感を得られました。量より質 - まさに私が求めていたものです。",
+        "author": "R.L.様",
+        "location": "ニューヨーク"
+      }
+    },
+    "location": {
+      "title": "なぜ六本木？",
+      "subtitle": "東京のプレミアムナイトライフの中心地",
+      "feature1": "多言語対応の国際的な雰囲気",
+      "feature2": "プレミアムバー、レストラン、高級ラウンジ",
+      "feature3": "安全でアクセスしやすく、交通の便が良い",
+      "feature4": "東京の洗練されたエンターテイメントシーンの中心"
+    },
+    "trust": {
+      "title": "信頼と安全",
+      "subtitle": "お客様のセキュリティが最優先事項です",
+      "verification": {
+        "title": "本人確認必須",
+        "desc": "すべての会員は徹底的な認証を受けています"
+      },
+      "payment": {
+        "title": "安全な決済処理",
+        "desc": "すべての取引は銀行レベルの暗号化で保護"
+      },
+      "support": {
+        "title": "24時間サポート",
+        "desc": "いつでもサポートいたします"
+      },
+      "privacy": {
+        "title": "プライバシー保証",
+        "desc": "お客様の情報は決して共有されません"
+      }
+    },
+    "finalCTA": {
+      "title": "素敵な夜を過ごしませんか？",
+      "subtitle": "東京で最も洗練されたコンパニオンプラットフォームに参加",
+      "ctaPrimary": "今すぐ参加",
+      "ctaSecondary": "コンパニオンを見る",
+      "note": "本人確認必須 • 慎重＆プロフェッショナル"
+    },
+    "footer": {
+      "about": "会社概要",
+      "howItWorks": "ご利用方法",
+      "safety": "安全とプライバシー",
+      "terms": "利用規約",
+      "privacy": "プライバシーポリシー",
+      "contact": "お問い合わせ",
+      "copyright": "© 2025 LUNE PRIVÉ. 無断転載禁止。",
+      "location": "東京 六本木"
+    }
   }
 }

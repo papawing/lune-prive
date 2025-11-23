@@ -61,8 +61,6 @@ export async function PUT(
     const { id } = await params
     const body = await request.json()
 
-    console.log("Received update body:", JSON.stringify(body, null, 2))
-
     const {
       email,
       password,
@@ -193,8 +191,6 @@ export async function PUT(
     if (isFeatured !== undefined) {
       updateData.isFeatured = isFeatured
     }
-
-    console.log("Updating cast with data:", JSON.stringify(updateData, null, 2))
 
     // Update cast profile
     const updatedCast = await prisma.cast.update({
