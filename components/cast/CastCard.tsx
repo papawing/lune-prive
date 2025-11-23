@@ -12,6 +12,8 @@ type CastCardProps = {
   name: string;
   age: number;
   languages: string[];
+  location?: string;
+  interests?: string[];
   tierClassification: "STANDARD" | "HIGH_CLASS";
   verificationStatus: "APPROVED" | "PENDING" | "REJECTED";
   isFeatured: boolean;
@@ -26,6 +28,8 @@ export default function CastCard({
   name,
   age,
   languages,
+  location,
+  interests,
   tierClassification,
   verificationStatus,
   isFeatured,
@@ -152,10 +156,10 @@ export default function CastCard({
         </div>
 
         {/* Card Content */}
-        <CardContent className="p-4 space-y-2">
+        <CardContent className="p-3 space-y-1.5">
           {/* Name & Age */}
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-lg text-deep truncate">
+            <h3 className="font-semibold text-base text-deep truncate">
               {name}
             </h3>
             <span className="text-sm text-light ml-2">
@@ -163,23 +167,51 @@ export default function CastCard({
             </span>
           </div>
 
+          {/* Location */}
+          {location && (
+            <div className="flex items-center gap-1 text-xs text-light">
+              <span>📍</span>
+              <span className="truncate">{location}</span>
+            </div>
+          )}
+
           {/* Languages */}
           <div className="flex flex-wrap gap-1">
             {languages.slice(0, 3).map((lang) => (
               <Badge
                 key={lang}
                 variant="outline"
-                className="text-xs px-2 py-0.5 border-gray-200 text-light"
+                className="text-xs px-1.5 py-0 border-gray-200 text-light"
               >
                 {getLanguageLabel(lang)}
               </Badge>
             ))}
             {languages.length > 3 && (
-              <Badge variant="outline" className="text-xs px-2 py-0.5">
+              <Badge variant="outline" className="text-xs px-1.5 py-0">
                 +{languages.length - 3}
               </Badge>
             )}
           </div>
+
+          {/* Interests */}
+          {interests && interests.length > 0 && (
+            <div className="flex flex-wrap gap-1">
+              {interests.slice(0, 3).map((interest) => (
+                <Badge
+                  key={interest}
+                  variant="secondary"
+                  className="text-xs px-1.5 py-0 bg-teal/10 text-teal border-teal/20"
+                >
+                  {interest}
+                </Badge>
+              ))}
+              {interests.length > 3 && (
+                <Badge variant="secondary" className="text-xs px-1.5 py-0 bg-teal/10 text-teal">
+                  +{interests.length - 3}
+                </Badge>
+              )}
+            </div>
+          )}
         </CardContent>
       </Card>
     </Link>

@@ -67,7 +67,7 @@ export default function FilterPanel({
   const hasInterestFilter = filters.interests.length > 0
 
   return (
-    <div className="mb-8">
+    <div className="mb-4 md:mb-6">
       {/* Horizontal Filter Pills */}
       <div className="flex flex-wrap items-center gap-3">
         {/* Age Range Filter */}

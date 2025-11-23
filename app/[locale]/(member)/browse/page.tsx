@@ -73,26 +73,14 @@ export default async function BrowsePage({ params }: PageProps) {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-white pt-24 pb-12">
-        {/* Page Header - Airbnb Style */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-          <h1 className="font-display text-3xl md:text-4xl font-bold text-deep mb-3">
-            {t("browse.title")}
-          </h1>
-          <p className="text-light text-base md:text-lg max-w-2xl">
-            {member.tier === "VIP" || member.tier === "GOLD"
-              ? t("browse.premiumAccess")
-              : t("browse.basicAccess")}
-          </p>
-        </div>
-
-        {/* Client-side Browse with Filters */}
+      <div className="min-h-screen bg-white pt-20 pb-8">
+        {/* Client-side Browse with Filters - Header removed for sticky filter UX */}
         <BrowseClient initialCasts={casts} locale={locale} />
 
         {/* Upgrade CTA for Standard Members - Airbnb Style */}
         {member.tier === "STANDARD" && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mt-20 bg-gradient-luxury rounded-airbnb-xl p-8 md:p-12 text-center shadow-airbnb-xl overflow-hidden relative">
+            <div className="mt-8 md:mt-12 bg-gradient-luxury rounded-airbnb-xl p-6 md:p-8 text-center shadow-airbnb-xl overflow-hidden relative">
               <div className="absolute inset-0 bg-gradient-to-br from-rose-gold/20 to-champagne/20"></div>
               <div className="relative z-10">
                 <div className="text-5xl mb-4">✨</div>

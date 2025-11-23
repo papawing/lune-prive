@@ -28,49 +28,54 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 left-0 right-0 w-full bg-white border-b border-gray-100 shadow-sm z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex justify-between items-center h-20 w-full">
+        <div className="flex items-center h-20 w-full">
           {/* Logo */}
-          <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
+          <Link href="/" className="flex items-center hover:opacity-80 transition-opacity flex-shrink-0">
             <Image
               src="/images/lune-prive-logo.jpg"
               alt="LUNE PRIVÉ"
-              width={180}
-              height={60}
+              width={150}
+              height={50}
               className="object-contain"
               priority
             />
           </Link>
 
-          {/* Center - Navigation Links (hidden on mobile) */}
-          <nav className="hidden lg:flex flex-1 items-center justify-center gap-6 mx-12">
-            <Link
-              href="/about"
-              className="text-[#222222] font-medium hover:text-teal transition-colors"
-            >
-              {t("nav.about") || "About Us"}
-            </Link>
-            <Link
-              href="/how-it-works"
-              className="text-[#222222] font-medium hover:text-teal transition-colors"
-            >
-              {t("nav.howItWorks") || "How It Works"}
-            </Link>
-            <Link
-              href="/become-cast"
-              className="text-[#222222] font-medium hover:text-teal transition-colors"
-            >
-              {t("nav.becomeCast") || "Become Cast"}
-            </Link>
-            <Link
-              href="/register"
-              className="text-[#222222] font-medium hover:text-teal transition-colors"
-            >
-              {t("nav.becomeMember") || "Become Member"}
-            </Link>
-          </nav>
+          {/* Center - Navigation Links (hidden on mobile, only show when not logged in) */}
+          {!session?.user && (
+            <nav className="hidden lg:flex flex-1 items-center justify-center gap-6 mx-12">
+              <Link
+                href="/about"
+                className="text-[#222222] font-medium hover:text-teal transition-colors"
+              >
+                {t("nav.about") || "About Us"}
+              </Link>
+              <Link
+                href="/how-it-works"
+                className="text-[#222222] font-medium hover:text-teal transition-colors"
+              >
+                {t("nav.howItWorks") || "How It Works"}
+              </Link>
+              <Link
+                href="/become-cast"
+                className="text-[#222222] font-medium hover:text-teal transition-colors"
+              >
+                {t("nav.becomeCast") || "Become Cast"}
+              </Link>
+              <Link
+                href="/register"
+                className="text-[#222222] font-medium hover:text-teal transition-colors"
+              >
+                {t("nav.becomeMember") || "Become Member"}
+              </Link>
+            </nav>
+          )}
+
+          {/* Spacer when logged in to push menu to right */}
+          {session?.user && <div className="flex-1" />}
 
           {/* Right Side - Navigation & Auth */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-shrink-0">
             {/* Language Switcher */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -185,35 +190,37 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation (visible only on mobile) */}
-      <nav className="lg:hidden border-t border-gray-100 px-4 py-3">
-        <div className="flex items-center justify-around gap-2 text-sm">
-          <Link
-            href="/about"
-            className="text-[#222222] font-medium hover:text-teal transition-colors"
-          >
-            {t("nav.about") || "About"}
-          </Link>
-          <Link
-            href="/how-it-works"
-            className="text-[#222222] font-medium hover:text-teal transition-colors"
-          >
-            {t("nav.howItWorks") || "How It Works"}
-          </Link>
-          <Link
-            href="/become-cast"
-            className="text-[#222222] font-medium hover:text-teal transition-colors"
-          >
-            {t("nav.becomeCast") || "Cast"}
-          </Link>
-          <Link
-            href="/register"
-            className="text-[#222222] font-medium hover:text-teal transition-colors"
-          >
-            {t("nav.becomeMember") || "Member"}
-          </Link>
-        </div>
-      </nav>
+      {/* Mobile Navigation (visible only on mobile, only show when not logged in) */}
+      {!session?.user && (
+        <nav className="lg:hidden border-t border-gray-100 px-4 py-3">
+          <div className="flex items-center justify-around gap-2 text-sm">
+            <Link
+              href="/about"
+              className="text-[#222222] font-medium hover:text-teal transition-colors"
+            >
+              {t("nav.about") || "About"}
+            </Link>
+            <Link
+              href="/how-it-works"
+              className="text-[#222222] font-medium hover:text-teal transition-colors"
+            >
+              {t("nav.howItWorks") || "How It Works"}
+            </Link>
+            <Link
+              href="/become-cast"
+              className="text-[#222222] font-medium hover:text-teal transition-colors"
+            >
+              {t("nav.becomeCast") || "Cast"}
+            </Link>
+            <Link
+              href="/register"
+              className="text-[#222222] font-medium hover:text-teal transition-colors"
+            >
+              {t("nav.becomeMember") || "Member"}
+            </Link>
+          </div>
+        </nav>
+      )}
     </header>
   )
 }

@@ -3,7 +3,10 @@
 import { useState, useMemo } from "react"
 import { useTranslations } from "next-intl"
 import { Search } from "lucide-react"
-import FilterPanel, { type FilterState } from "./FilterPanel"
+import { type FilterState } from "./FilterPanel"
+import FilterButton from "./FilterButton"
+import FilterContent from "./FilterContent"
+import { BottomSheet } from "@/components/ui/bottom-sheet"
 import CastCard from "@/components/cast/CastCard"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -34,6 +37,9 @@ type SortOption = "featured" | "newest" | "youngest" | "oldest"
 
 export default function BrowseClient({ initialCasts, locale }: BrowseClientProps) {
   const t = useTranslations()
+
+  // Bottom sheet state
+  const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false)
 
   // Search state
   const [searchQuery, setSearchQuery] = useState("")
@@ -136,9 +142,8 @@ export default function BrowseClient({ initialCasts, locale }: BrowseClientProps
   const featuredCasts = !hasActiveFilters && !searchQuery
     ? filteredAndSortedCasts.filter((cast) => cast.isFeatured)
     : []
-  const regularCasts = hasActiveFilters || searchQuery
-    ? filteredAndSortedCasts
-    : filteredAndSortedCasts.filter((cast) => !cast.isFeatured)
+  // "All Companions" should show ALL casts (including featured ones)
+  const regularCasts = filteredAndSortedCasts
 
   // Clear all filters function
   const handleClearAllFilters = () => {
@@ -166,59 +171,18 @@ export default function BrowseClient({ initialCasts, locale }: BrowseClientProps
     }))
   }
 
+  // Count active filters
+  const activeFilterCount =
+    filters.languages.length +
+    filters.interests.length +
+    (filters.location ? 1 : 0) +
+    (filters.ageRange[0] !== 18 || filters.ageRange[1] !== 35 ? 1 : 0)
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Search Bar */}
-      <div className="mb-6">
-        <div className="relative max-w-2xl mx-auto">
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-          <input
-            type="text"
-            placeholder={t("browse.searchPlaceholder")}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 rounded-full border-2 border-gray-200 focus:border-teal focus:ring-0 transition-colors text-base"
-          />
-        </div>
-      </div>
-
-      {/* Filter Panel */}
-      <FilterPanel
-        filters={filters}
-        onFilterChange={setFilters}
-        availableLocations={availableLocations}
-        availableInterests={availableInterests}
-      />
-
-      {/* Sort + Active Filters + Results Count */}
-      <div className="mb-6">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
-          {/* Results Count */}
-          <div className="flex items-center gap-3">
-            <p className="text-sm font-semibold text-deep">
-              {t("browse.castsFound", { count: filteredAndSortedCasts.length })}
-            </p>
-          </div>
-
-          {/* Sort Dropdown */}
-          <div className="flex items-center gap-2">
-            <label className="text-sm font-semibold text-deep">
-              {t("browse.sortBy")}:
-            </label>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as SortOption)}
-              className="px-4 py-2 rounded-lg border-2 border-gray-200 focus:border-teal focus:ring-0 transition-colors text-sm font-medium"
-            >
-              <option value="featured">{t("browse.sortFeatured")}</option>
-              <option value="youngest">{t("browse.sortYoungest")}</option>
-              <option value="oldest">{t("browse.sortOldest")}</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Active Filter Chips */}
-        {(hasActiveFilters || searchQuery) && (
+      {/* Active Filter Chips - Show only when filters/search active */}
+      {(hasActiveFilters || searchQuery) && (
+        <div className="mb-4">
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-xs font-semibold text-light">
               {t("browse.activeFilters")}:
@@ -310,13 +274,13 @@ export default function BrowseClient({ initialCasts, locale }: BrowseClientProps
               {t("browse.clearAllFilters")}
             </Button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Featured Casts Section - Only show if no filters active */}
       {featuredCasts.length > 0 && (
-        <section className="mb-16">
-          <h2 className="font-semibold text-xl md:text-2xl text-deep mb-6">
+        <section className="mb-8 md:mb-10">
+          <h2 className="font-semibold text-xl md:text-2xl text-deep mb-4">
             ⭐ {t("browse.featuredTitle")}
           </h2>
           <div className="flex gap-6 overflow-x-auto pb-6 -mx-4 px-4 scroll-smooth snap-x snap-mandatory scrollbar-hide">
@@ -330,6 +294,8 @@ export default function BrowseClient({ initialCasts, locale }: BrowseClientProps
                   name={cast.user.nickname}
                   age={cast.age}
                   languages={cast.languages}
+                  location={cast.location}
+                  interests={cast.interests}
                   tierClassification={cast.tierClassification}
                   verificationStatus={cast.user.verificationStatus}
                   isFeatured={cast.isFeatured}
@@ -345,10 +311,21 @@ export default function BrowseClient({ initialCasts, locale }: BrowseClientProps
 
       {/* All Casts Grid - OPTIMIZED TO 3 COLS MAX */}
       <section>
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4">
           <h2 className="font-semibold text-xl md:text-2xl text-deep">
             {hasActiveFilters || searchQuery ? t("browse.title") : t("browse.allCasts")}
           </h2>
+
+          {/* Sort Dropdown */}
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as SortOption)}
+            className="px-4 py-2 rounded-lg border-2 border-gray-200 focus:border-teal focus:ring-0 transition-colors text-sm font-medium"
+          >
+            <option value="featured">{t("browse.sortFeatured")}</option>
+            <option value="youngest">{t("browse.sortYoungest")}</option>
+            <option value="oldest">{t("browse.sortOldest")}</option>
+          </select>
         </div>
 
         {regularCasts.length === 0 ? (
@@ -367,7 +344,7 @@ export default function BrowseClient({ initialCasts, locale }: BrowseClientProps
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {regularCasts.map((cast) => (
               <CastCard
                 key={cast.id}
@@ -375,6 +352,8 @@ export default function BrowseClient({ initialCasts, locale }: BrowseClientProps
                 name={cast.user.nickname}
                 age={cast.age}
                 languages={cast.languages}
+                location={cast.location}
+                interests={cast.interests}
                 tierClassification={cast.tierClassification}
                 verificationStatus={cast.user.verificationStatus}
                 isFeatured={cast.isFeatured}
@@ -386,6 +365,30 @@ export default function BrowseClient({ initialCasts, locale }: BrowseClientProps
           </div>
         )}
       </section>
+
+      {/* Filter Button (FAB) - Bottom Right */}
+      <FilterButton
+        onClick={() => setIsFilterSheetOpen(true)}
+        activeFilterCount={activeFilterCount}
+      />
+
+      {/* Filter Bottom Sheet */}
+      <BottomSheet
+        isOpen={isFilterSheetOpen}
+        onClose={() => setIsFilterSheetOpen(false)}
+        title={t("browse.filters")}
+      >
+        <FilterContent
+          filters={filters}
+          onFilterChange={setFilters}
+          availableLocations={availableLocations}
+          availableInterests={availableInterests}
+          resultCount={filteredAndSortedCasts.length}
+          onApply={() => setIsFilterSheetOpen(false)}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+        />
+      </BottomSheet>
     </div>
   )
 }
