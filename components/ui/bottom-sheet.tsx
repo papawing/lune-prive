@@ -68,9 +68,9 @@ export function BottomSheet({
           <div className="w-12 h-1 bg-gray-300 rounded-full" />
         </div>
 
-        {/* Header */}
+        {/* Header - Sticky */}
         {title && (
-          <div className="flex items-center justify-between gap-4 px-4 sm:px-6 py-3 border-b border-gray-200">
+          <div className="sticky top-0 z-10 bg-white flex items-center justify-between gap-4 px-4 sm:px-6 py-3 border-b border-gray-200 flex-shrink-0">
             <h3 className="text-lg font-semibold text-deep flex-1 truncate">{title}</h3>
             <button
               onClick={onClose}
@@ -83,7 +83,7 @@ export function BottomSheet({
         )}
 
         {/* Content - Scrollable */}
-        <div className="flex-1 overflow-y-auto px-6 py-4">
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4">
           {children}
         </div>
       </div>
