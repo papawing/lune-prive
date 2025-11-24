@@ -10,24 +10,29 @@ const SITE_PASSWORD = '123456';
 const PASSWORD_COOKIE = 'site-access';
 
 export default function middleware(request: NextRequest) {
-  // Only apply password protection in production
-  if (process.env.NODE_ENV === 'production' && process.env.ENABLE_PASSWORD_PROTECTION === 'true') {
+  // Apply password protection if enabled
+  const isPasswordProtectionEnabled = process.env.ENABLE_PASSWORD_PROTECTION === 'true';
+
+  if (isPasswordProtectionEnabled) {
+    // Allow access to password verification API and static assets
+    if (
+      request.nextUrl.pathname === '/api/verify-password' ||
+      request.nextUrl.pathname.startsWith('/_next') ||
+      request.nextUrl.pathname.startsWith('/images') ||
+      request.nextUrl.pathname === '/password-gate'
+    ) {
+      return intlMiddleware(request);
+    }
+
     // Check if password cookie exists
     const passwordCookie = request.cookies.get(PASSWORD_COOKIE);
-
-    // Allow access to password verification API
-    if (request.nextUrl.pathname === '/api/verify-password') {
-      return NextResponse.next();
-    }
 
     // Check if user has valid password cookie
     if (!passwordCookie || passwordCookie.value !== SITE_PASSWORD) {
       // Redirect to password page if not authenticated
-      if (!request.nextUrl.pathname.startsWith('/password-gate')) {
-        const url = request.nextUrl.clone();
-        url.pathname = '/password-gate';
-        return NextResponse.redirect(url);
-      }
+      const url = request.nextUrl.clone();
+      url.pathname = '/password-gate';
+      return NextResponse.redirect(url);
     }
   }
 
